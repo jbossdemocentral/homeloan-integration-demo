@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<smooks-resource-list xmlns="http://www.milyn.org/xsd/smooks-1.1.xsd" 
+xmlns:ftl="http://www.milyn.org/xsd/smooks/freemarker-1.1.xsd">
+  <params>
+    <param name="inputType">input.java</param>
+  </params>
+  <ftl:freemarker applyOnElement="#document">
+    <ftl:template>
+		<![CDATA[
+		<pqd:PreQualificationDecisionResponse 
+				xmlns:pqd="http://jboss.com/demo/products/soa-p/5.2/PreQualificationDecisionResponse.xsd">
+    		<pqd:Approved>${loanApp.approved?string}</pqd:Approved>    
+    		<pqd:ApprovedRate>${loanApp.approvedRate}</pqd:ApprovedRate>    
+    		<pqd:Explanation>${loanApp.explanation!""}</pqd:Explanation>    
+    		<pqd:InsuranceCost>${loanApp.insuranceCost}</pqd:InsuranceCost>    
+		</pqd:PreQualificationDecisionResponse>]]>
+		</ftl:template>
+  </ftl:freemarker>
+</smooks-resource-list>

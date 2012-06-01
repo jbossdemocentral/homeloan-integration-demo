@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema elementFormDefault="qualified"
+	targetNamespace="http://jboss.com/demo/products/soa-p/5.2/PreQualificationDecisionRequest.xsd"
+	xmlns:tns="http://jboss.com/demo/products/soa-p/5.2/PreQualificationDecisionRequest.xsd" 
+	xmlns:app="http://jboss.com/demo/products/soa-p/5.2/Application.xsd"
+	xmlns="http://www.w3.org/2001/XMLSchema">
+	
+	<import schemaLocation="Application.xsd"
+		namespace="http://jboss.com/demo/products/soa-p/5.2/Application.xsd" />
+	
+    <element name="PreQualificationDecisionRequest" type="tns:PreQualificationDecisionRequestType"></element>
+
+    <complexType name="PreQualificationDecisionRequestType">
+    	<sequence>
+    		<element ref="app:Application"></element>
+    		<element name="CreditScore" type="tns:CreditScoreType"></element>
+    	</sequence>
+    </complexType>
+    
+    <simpleType name="CreditScoreType">
+    	<restriction base="int">
+    		<minInclusive value="0"></minInclusive>
+    		<maxInclusive value="850"></maxInclusive>
+    	</restriction>
+    </simpleType>
+
+</schema>

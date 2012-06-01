@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deploy xmlns="http://www.apache.org/ode/schemas/dd/2007/03" xmlns:CreditReport.wsdl="http://jboss.com/demo/products/soa-p/5.2/CreditReport.wsdl" xmlns:CreditReportProcess.bpel="http://jboss.com/demo/products/soa-p/5.2/CreditReportProcess.bpel" xmlns:HomeLoanPreQualification.bpel="http://jboss.com/demo/products/soa-p/5.2/HomeLoanPreQualification.bpel" xmlns:URLA1003.wsdl="http://jboss.com/demo/products/soa-p/5.2/URLA1003.wsdl" xmlns:homeloan-origination-demo="http://soa.jboss.org/homeloan-origination-demo">
+  <process name="CreditReportProcess.bpel:CreditReportProcess">
+    <active>true</active>
+    <retired>false</retired>
+    <in-memory>true</in-memory>
+    <process-events generate="all"/>
+    <provide partnerLink="Lender">
+      <service name="CreditReport.wsdl:CreditReportService" port="CreditReportSoap"/>
+    </provide>
+  </process>
+  <process name="HomeLoanPreQualification.bpel:HomeLoanPreQualification">
+    <active>true</active>
+    <retired>false</retired>
+    <process-events generate="all"/>
+    <provide partnerLink="Borrower">
+      <service name="URLA1003.wsdl:URLA1003Port" port="URLA1003Port"/>
+    </provide>
+    <invoke partnerLink="CreditAgency">
+      <service name="CreditReport.wsdl:CreditReportService" port="CreditReportSoap"/>
+    </invoke>
+    <invoke partnerLink="RulesEngine">
+      <service name="homeloan-origination-demo:PreQualDecisionServiceService" port="PreQualDecisionServicePortType"/>
+    </invoke>
+  </process>
+</deploy>

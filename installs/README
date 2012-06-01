@@ -1,0 +1,7 @@
+Download the following from the JBoss Customer Portal
+
+ * SOA-P (soa-p-5.2.0.GA.zip)
+ * BRMS (brms-p-5.2.0.GA-deployable.zip)
+
+and copy to this directory for the init.sh script to work.
+

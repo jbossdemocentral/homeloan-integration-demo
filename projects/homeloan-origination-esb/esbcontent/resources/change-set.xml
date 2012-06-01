@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<change-set xmlns='http://drools.org/drools-5.0/change-set'>
+	<add>
+		<resource
+			source='http://localhost:8080/jboss-brms/org.drools.guvnor.Guvnor/package/mortgages/LATEST.drl'
+			type='PKG' basicAuthentication="enabled" username="admin" password="admin" />
+	</add>
+</change-set>

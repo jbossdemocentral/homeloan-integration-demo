@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<jbossesb parameterReloadSecs="5"
+ xmlns="http://anonsvn.labs.jboss.com/labs/jbossesb/trunk/product/etc/schemas/xml/jbossesb-1.3.0.xsd"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://anonsvn.labs.jboss.com/labs/jbossesb/trunk/product/etc/schemas/xml/jbossesb-1.3.0.xsd http://anonsvn.jboss.org/repos/labs/labs/jbossesb/trunk/product/etc/schemas/xml/jbossesb-1.3.0.xsd">
+ <providers>
+  <fs-provider name="FileSystem-UniformResidentialLoanApplicationIntake">
+   <fs-bus busid="HomeLoanApplicationIntakeDefaultChannel">
+    <fs-message-filter directory="/tmp/inboundLoanApplications" input-suffix="loan"/>
+   </fs-bus>
+  </fs-provider>
+ </providers>
+ <services>
+  <service category="homeloan-origination-demo"
+   description="Receives Home Loan Applications" invmScope="GLOBAL" name="ResidentialLoan-PreQualificationProcess">
+   <actions mep="RequestResponse">
+    <action class="org.jboss.soa.esb.actions.bpel.BPELInvoke" name="BPELInvoke-HomeLoanPreQualification">
+     <property name="service" value="{http://jboss.com/demo/products/soa-p/5.2/URLA1003.wsdl}URLA1003Port"/>
+     <property name="operation" value="AddApplication"/>
+     <property name="requestPartName" value="Document"/>
+     <property name="responsePartName" value="Document"/>
+    </action>
+   </actions>
+  </service>
+  <service category="homeloan-origination-demo"
+   description="Decision Service for evaluating home loan application"
+   invmScope="GLOBAL" name="PreQualDecisionService">
+   <actions
+    inXsd="/resources/schema/PreQualificationDecisionRequest.xsd"
+    mep="RequestResponse"
+    outXsd="/resources/schema/PreQualificationDecisionResponse.xsd" webservice="true">
+    <action class="org.jboss.soa.esb.smooks.SmooksAction" name="Transform from XML to Java Fact Model">
+     <property name="smooksConfig" value="/resources/smooks-config_xml2java.xml"/>
+     <property name="set-payload-location" value="smooksBeanMap"/>
+     <property name="resultType" value="JAVA"/>
+    </action>
+    <action class="org.jboss.soa.esb.actions.BusinessRulesProcessor" name="Fire All Rules">
+     <property name="ruleAgentProperties" value="/resources/brms.properties"/>
+     <property name="stateful" value="false"/>
+     <property name="ruleEventProcessingType" value="CLOUD"/>
+     <property name="ruleFireMethod" value="FIRE_ALL_RULES"/>
+     <property name="ruleMultithreadEvaluation" value="false"/>
+     <property name="object-paths">
+      <object-path esb="body.smooksBeanMap.applicant"/>
+      <object-path esb="body.smooksBeanMap.loanApp"/>
+      <object-path esb="body.smooksBeanMap.incomeSource"/>
+     </property>
+    </action>
+    <action class="org.jboss.soa.esb.smooks.SmooksAction" name="Transform from Java Fact Model to XML">
+     <property name="smooksConfig" value="/resources/smooks-config_java2xml.xml"/>
+     <property name="get-payload-location" value="smooksBeanMap"/>
+     <property name="resultType" value="STRING"/>
+    </action>
+   </actions>
+  </service>
+  <service category="homeloan-origination-demo"
+   description="Uniform Residential Loan Application received via file system"
+   invmScope="GLOBAL" name="UniformResidentialLoanApplicationIntake-FileSystem">
+   <listeners>
+    <fs-listener busidref="HomeLoanApplicationIntakeDefaultChannel"
+     is-gateway="true" name="FileSystem"/>
+   </listeners>
+   <actions mep="OneWay">
+    <action
+     class="org.jboss.soa.esb.actions.converters.ByteArrayToString" name="ConvertByteArrayToString">
+     <property name="encoding" value="utf-8"/>
+    </action>
+    <action class="org.jboss.soa.esb.actions.SyncServiceInvoker" name="RouteTo-ResidentialLoan-PreQualificationProcess">
+     <property name="service-category" value="homeloan-origination-demo"/>
+     <property name="service-name" value="ResidentialLoan-PreQualificationProcess"/>
+    </action>
+    <action class="org.jboss.soa.esb.actions.Notifier" name="Write Response to File">
+     <property name="okMethod" value="notifyOK"/>
+     <property name="destinations">
+      <NotificationList type="OK">
+       <target class="NotifyFiles">
+        <file
+         URI="file:///tmp/inboundLoanApplications/PreApprovalResponse.txt" append="false"/>
+       </target>
+      </NotificationList>
+     </property>
+    </action>
+   </actions>
+  </service>
+ </services>
+</jbossesb>

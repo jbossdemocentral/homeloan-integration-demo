@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faceted-project>
+  <runtime name="jboss-soa-p-5 Runtime"/>
+  <fixed facet="jst.jboss.esb"/>
+  <fixed facet="java"/>
+  <installed facet="jst.jboss.esb" version="4.10"/>
+  <installed facet="java" version="1.6"/>
+</faceted-project>

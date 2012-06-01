@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:PreQualificationDecisionResponse
+	xmlns:tns="http://jboss.com/demo/products/soa-p/5.2/PreQualificationDecisionResponse.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://jboss.com/demo/products/soa-p/5.2/PreQualificationDecisionResponse.xsd PreQualificationDecisionResponse.xsd ">
+	<tns:Approved>true</tns:Approved>
+	<tns:ApprovedRate>3.5</tns:ApprovedRate>
+	<tns:Explanation/>
+	<tns:InsuranceCost>100.00</tns:InsuranceCost>
+</tns:PreQualificationDecisionResponse>

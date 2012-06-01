@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema elementFormDefault="qualified"
+	targetNamespace="http://jboss.com/demo/products/soa-p/5.2/PreQualificationDecisionResponse.xsd"
+	xmlns:tns="http://jboss.com/demo/products/soa-p/5.2/PreQualificationDecisionResponse.xsd"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+	<xsd:element name="PreQualificationDecisionResponse" type="tns:PreQualificationDecisionResponseType" />
+
+	<xsd:complexType name="PreQualificationDecisionResponseType">
+		<xsd:sequence>
+			<xsd:element name="Approved" type="xsd:boolean" />
+			<xsd:element name="ApprovedRate" type="xsd:float" />
+			<xsd:element name="Explanation" type="xsd:string" />
+			<xsd:element name="InsuranceCost" type="tns:MoneyType" />
+		</xsd:sequence>
+	</xsd:complexType>
+	
+	<xsd:simpleType name="MoneyType">
+        <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+        </xsd:restriction>
+    </xsd:simpleType>
+
+</xsd:schema>

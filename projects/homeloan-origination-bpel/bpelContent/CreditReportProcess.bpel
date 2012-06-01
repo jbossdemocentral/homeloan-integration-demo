@@ -1,0 +1,119 @@
+<bpel:process name="CreditReportProcess"
+	suppressJoinFailure="yes"
+	targetNamespace="http://jboss.com/demo/products/soa-p/5.2/CreditReportProcess.bpel"
+	xmlns:tns="http://jboss.com/demo/products/soa-p/5.2/CreditReportProcess.bpel"
+	xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+	xmlns:crws="http://jboss.com/demo/products/soa-p/5.2/CreditReport.wsdl"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<bpel:import
+		namespace="http://jboss.com/demo/products/soa-p/5.2/CreditReport.wsdl"
+		location="wsdl/CreditReport.wsdl" importType="http://schemas.xmlsoap.org/wsdl/" />
+
+	<bpel:partnerLinks>
+		<bpel:partnerLink name="Lender" partnerLinkType="crws:CreditRatingPLT"
+			myRole="ConsumerReportingAgency" />
+	</bpel:partnerLinks>
+	
+	<bpel:variables>
+		<bpel:variable name="CreditReportRequest" messageType="crws:CreditReportRequest"></bpel:variable>
+		<bpel:variable name="CreditReportResponse" messageType="crws:CreditReportResponse"></bpel:variable>
+		<bpel:variable name="creditScore" type="xs:integer"></bpel:variable>
+	</bpel:variables>
+	
+	<bpel:sequence name="Sequence">
+		<bpel:receive name="ReceiveCreditReport" partnerLink="Lender"
+			operation="CreditReport" portType="crws:CreditReportPortType"
+			variable="CreditReportRequest" createInstance="yes"></bpel:receive>
+		
+        <bpel:assign validate="no">
+            <bpel:copy>
+                <bpel:from>
+                    <![CDATA[substring($CreditReportRequest.Document/crws:ssn, 1, 3)]]>
+                </bpel:from>
+                <bpel:to variable="creditScore"></bpel:to>
+            </bpel:copy>
+        </bpel:assign>
+        <bpel:if name="CreditScoreIsOddNumber">
+            <bpel:condition><![CDATA[($creditScore mod 2) = 1]]></bpel:condition>
+            <bpel:wait name="SimulatedDelay">
+                <bpel:for><![CDATA['PT1S']]></bpel:for>
+            </bpel:wait>
+            <bpel:else>
+                <bpel:empty name="DoNothing"></bpel:empty>
+            </bpel:else>
+        </bpel:if>
+        <bpel:assign validate="no" name="Assign">
+            
+            
+            <bpel:copy>
+                <bpel:from>
+                    <bpel:literal xml:space="preserve"><tns:creditReport xmlns:tns="http://jboss.com/demo/products/soa-p/5.2/CreditReport.wsdl"><tns:firstName>tns:firstName</tns:firstName>
+  <tns:lastName></tns:lastName>
+  <tns:dob></tns:dob>
+  <tns:ssn></tns:ssn>
+  <tns:score></tns:score>
+  <tns:liability></tns:liability>
+  <tns:liquidAssests></tns:liquidAssests>
+  <tns:immovableAssests></tns:immovableAssests>
+</tns:creditReport></bpel:literal>
+                </bpel:from>
+                <bpel:to variable="CreditReportResponse" part="Document"></bpel:to>
+            </bpel:copy>
+            <bpel:copy>
+                <bpel:from part="Document" variable="CreditReportRequest">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
+                        <![CDATA[crws:firstName]]>
+                    </bpel:query>
+                </bpel:from>
+                <bpel:to part="Document" variable="CreditReportResponse">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[crws:firstName]]></bpel:query>
+                </bpel:to>
+            </bpel:copy>
+            <bpel:copy>
+                <bpel:from part="Document" variable="CreditReportRequest">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[crws:lastName]]></bpel:query>
+                </bpel:from>
+                <bpel:to part="Document" variable="CreditReportResponse">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[crws:lastName]]></bpel:query>
+                </bpel:to>
+            </bpel:copy>
+            
+            
+            
+            
+            
+            
+            
+            <bpel:copy>
+                <bpel:from part="Document" variable="CreditReportRequest"><bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[crws:dob]]></bpel:query>
+                
+                </bpel:from><bpel:to part="Document" variable="CreditReportResponse">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[crws:dob]]></bpel:query>
+                </bpel:to>
+            
+            
+            </bpel:copy>
+            <bpel:copy>
+                <bpel:from part="Document" variable="CreditReportRequest">                
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
+                        <![CDATA[crws:ssn]]>
+                    </bpel:query>
+                </bpel:from><bpel:to part="Document" variable="CreditReportResponse">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[crws:ssn]]></bpel:query>
+                </bpel:to>
+            
+            
+            </bpel:copy>
+            
+            <bpel:copy>
+                <bpel:from variable="creditScore"></bpel:from>
+                <bpel:to part="Document" variable="CreditReportResponse">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[crws:score]]></bpel:query>
+                </bpel:to>
+            </bpel:copy>
+        </bpel:assign>
+        <bpel:reply name="ReplyCreditReport" partnerLink="Lender" operation="CreditReport" variable="CreditReportResponse"></bpel:reply>
+    </bpel:sequence>
+</bpel:process>
+

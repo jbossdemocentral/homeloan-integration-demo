@@ -1,0 +1,247 @@
+<bpel:process name="HomeLoanPreQualification"
+         targetNamespace="http://jboss.com/demo/products/soa-p/5.2/HomeLoanPreQualification.bpel"
+         xmlns:tns="http://jboss.com/demo/products/soa-p/5.2/HomeLoanPreQualification.bpel"
+         suppressJoinFailure="yes"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable" 
+         xmlns:aws="http://jboss.com/demo/products/soa-p/5.2/URLA1003.wsdl" 
+         xmlns:awsm="http://jboss.com/demo/products/soa-p/5.2/URLA1003Messages.xsd" 
+         xmlns:app="http://jboss.com/demo/products/soa-p/5.2/Application.xsd" 
+         xmlns:crws="http://jboss.com/demo/products/soa-p/5.2/CreditReport.wsdl" 
+         xmlns:pqdws="http://soa.jboss.org/homeloan-origination-demo" 
+         xmlns:pqdr="http://jboss.com/demo/products/soa-p/5.2/PreQualificationDecisionRequest.xsd" xmlns:pqdres="http://jboss.com/demo/products/soa-p/5.2/PreQualificationDecisionResponse.xsd">
+    
+    <bpel:import namespace="http://soa.jboss.org/homeloan-origination-demo" location="wsdl/PreQualDecisionService.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"></bpel:import>
+    <bpel:import namespace="http://jboss.com/demo/products/soa-p/5.2/CreditReport.wsdl" location="wsdl/CreditReport.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"></bpel:import>
+    <bpel:import namespace="http://jboss.com/demo/products/soa-p/5.2/Application.xsd" location="schema/Application.xsd" importType="http://www.w3.org/2001/XMLSchema"></bpel:import>
+    <bpel:import namespace="http://jboss.com/demo/products/soa-p/5.2/URLA1003.wsdl" location="wsdl/URLA1003.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"></bpel:import>
+    
+    <bpel:partnerLinks>
+        <bpel:partnerLink name="Borrower" partnerLinkType="aws:LendingPLT" myRole="Lender"></bpel:partnerLink>
+        <bpel:partnerLink name="CreditAgency" partnerLinkType="crws:CreditRatingPLT" partnerRole="ConsumerReportingAgency"></bpel:partnerLink>
+        <bpel:partnerLink name="RulesEngine" partnerLinkType="pqdws:PreQualificationDecisioning" partnerRole="DecisionService"></bpel:partnerLink>
+    </bpel:partnerLinks>
+    
+    <bpel:variables>
+        <bpel:variable name="ApplicationRequest" messageType="aws:AddApplicationRequest"></bpel:variable>
+        <bpel:variable name="PreQualificationResponse" messageType="aws:AddApplicationResponse"></bpel:variable>
+        <bpel:variable name="CreditReportResponse" messageType="crws:CreditReportResponse"></bpel:variable>
+        <bpel:variable name="CreditReportRequest" messageType="crws:CreditReportRequest"></bpel:variable>
+        
+        
+        <bpel:variable name="PreQualDecisionServiceRequest" messageType="pqdws:PreQualDecisionServiceReq"></bpel:variable>
+        <bpel:variable name="PreQualDecisionServiceResponse" messageType="pqdws:PreQualDecisionServiceRes"></bpel:variable>
+        
+    </bpel:variables>
+    
+    <bpel:sequence name="Sequence">
+        <bpel:receive name="ReceiveLoanApplication" partnerLink="Borrower" operation="AddApplication" variable="ApplicationRequest" createInstance="yes"/>
+        
+        
+        <bpel:assign validate="no">
+            
+            <bpel:copy>
+                <bpel:from>
+                    <bpel:literal xml:space="preserve"><tns:creditQuery xmlns:tns="http://jboss.com/demo/products/soa-p/5.2/CreditReport.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <tns:firstName></tns:firstName>
+  <tns:lastName></tns:lastName>
+  <tns:dob></tns:dob>
+  <tns:ssn></tns:ssn>
+</tns:creditQuery></bpel:literal>
+                </bpel:from>
+                <bpel:to variable="CreditReportRequest" part="Document"></bpel:to>
+            </bpel:copy>
+            <bpel:copy>
+                <bpel:from part="Document" variable="ApplicationRequest">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
+                        <![CDATA[app:Application/app:Borrowers/app:Borrower[1]/app:First_Name]]>
+                    </bpel:query>
+                </bpel:from>
+                <bpel:to part="Document" variable="CreditReportRequest">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
+                        <![CDATA[crws:firstName]]>
+                    </bpel:query>
+                </bpel:to>
+            </bpel:copy>
+            <bpel:copy>
+                <bpel:from part="Document" variable="ApplicationRequest">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
+                        <![CDATA[app:Application/app:Borrowers/app:Borrower[1]/app:Last_Name]]>
+                    </bpel:query>
+                </bpel:from>
+                <bpel:to part="Document" variable="CreditReportRequest">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
+                        <![CDATA[crws:lastName]]>
+                    </bpel:query>
+                </bpel:to>
+            </bpel:copy>
+            <bpel:copy>
+                <bpel:from part="Document" variable="ApplicationRequest">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
+                        <![CDATA[app:Application/app:Borrowers/app:Borrower[1]/app:SSN]]>
+                    </bpel:query>
+                </bpel:from>
+                <bpel:to part="Document" variable="CreditReportRequest">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
+                        <![CDATA[crws:ssn]]>
+                    </bpel:query>
+                </bpel:to>
+            </bpel:copy>
+            
+            
+            <bpel:copy>
+                <bpel:from part="Document" variable="ApplicationRequest">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[app:Application/app:Borrowers/app:Borrower[1]/app:DOB]]></bpel:query>
+                </bpel:from>
+                <bpel:to part="Document" variable="CreditReportRequest">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[crws:dob]]></bpel:query>
+                </bpel:to>
+            </bpel:copy>
+        </bpel:assign>
+        <bpel:invoke name="ObtainCreditReport" partnerLink="CreditAgency" operation="CreditReport" inputVariable="CreditReportRequest" outputVariable="CreditReportResponse"></bpel:invoke>
+        
+        <bpel:assign validate="no" name="Assign">
+            <bpel:copy>
+                <bpel:from>
+                    <bpel:literal xml:space="preserve"><tns:PreQualificationDecisionRequest xmlns:tns="http://jboss.com/demo/products/soa-p/5.2/PreQualificationDecisionRequest.xsd" xmlns:tns1="http://jboss.com/demo/products/soa-p/5.2/Application.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<tns1:Application></tns1:Application>
+	<tns:CreditScore>0</tns:CreditScore>
+</tns:PreQualificationDecisionRequest></bpel:literal>
+                </bpel:from>
+                <bpel:to variable="PreQualDecisionServiceRequest" part="in"></bpel:to>
+            </bpel:copy>
+            <bpel:copy>
+                <bpel:from part="Document" variable="ApplicationRequest">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
+                        <![CDATA[app:Application]]>
+                    </bpel:query>
+                </bpel:from>
+                <bpel:to part="in" variable="PreQualDecisionServiceRequest">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[app:Application]]></bpel:query>
+                </bpel:to>
+            </bpel:copy>
+            <bpel:copy>
+                <bpel:from part="Document" variable="CreditReportResponse">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
+                        <![CDATA[crws:score]]>
+                    </bpel:query>
+                </bpel:from>
+                <bpel:to part="in" variable="PreQualDecisionServiceRequest">
+                    <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
+                        <![CDATA[pqdr:CreditScore]]>
+                    </bpel:query>
+                </bpel:to>
+            </bpel:copy>
+        </bpel:assign>
+        <bpel:invoke name="PreQualDecisionService" partnerLink="RulesEngine" operation="PreQualDecisionServiceOp" inputVariable="PreQualDecisionServiceRequest" outputVariable="PreQualDecisionServiceResponse"></bpel:invoke>
+        <bpel:if name="Approved">
+            <bpel:condition><![CDATA[$PreQualDecisionServiceResponse.out/pqdres:Approved = "true"]]></bpel:condition>
+            <bpel:sequence>
+                <bpel:assign validate="no" name="PreQualified">
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                
+                <bpel:copy>
+                    <bpel:from>
+                        <bpel:literal xml:space="preserve"><msgs:AddApplicationResponse xmlns:msgs="http://jboss.com/demo/products/soa-p/5.2/URLA1003Messages.xsd" xmlns:tns="http://jboss.com/demo/products/soa-p/5.2/Application.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <msgs:disposition></msgs:disposition>
+  <msgs:interestRate></msgs:interestRate>
+  <msgs:explanation></msgs:explanation>
+  <msgs:insuranceCost></msgs:insuranceCost>
+</msgs:AddApplicationResponse>
+</bpel:literal>
+                    </bpel:from>
+                    <bpel:to variable="PreQualificationResponse" part="Document"></bpel:to>
+                </bpel:copy>
+                <bpel:copy>
+                    <bpel:from>
+                        <bpel:literal xml:space="preserve">Approved</bpel:literal>
+                    </bpel:from>
+                    <bpel:to part="Document" variable="PreQualificationResponse">
+                        <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
+                            <![CDATA[awsm:disposition]]>
+                        </bpel:query>
+                    </bpel:to>
+                </bpel:copy>
+                    <bpel:copy>
+                        <bpel:from part="out" variable="PreQualDecisionServiceResponse">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0">
+                                <![CDATA[pqdres:ApprovedRate]]>
+                            </bpel:query>
+                        </bpel:from>
+                        <bpel:to part="Document" variable="PreQualificationResponse">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[awsm:interestRate]]></bpel:query>
+                        </bpel:to>
+                    </bpel:copy>
+                    <bpel:copy>
+                        <bpel:from part="out" variable="PreQualDecisionServiceResponse">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[pqdres:Explanation]]></bpel:query>
+                        </bpel:from>
+                        <bpel:to part="Document" variable="PreQualificationResponse">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[awsm:explanation]]></bpel:query>
+                        </bpel:to>
+                    </bpel:copy>
+                    <bpel:copy>
+                        <bpel:from part="out" variable="PreQualDecisionServiceResponse">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[pqdres:InsuranceCost]]></bpel:query>
+                        </bpel:from>
+                        <bpel:to part="Document" variable="PreQualificationResponse">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[awsm:insuranceCost]]></bpel:query>
+                        </bpel:to>
+                    </bpel:copy>
+                </bpel:assign>
+                <bpel:reply name="ReplyPreQual-Approved" partnerLink="Borrower" operation="AddApplication" variable="PreQualificationResponse"></bpel:reply>
+                <bpel:empty name="ObtainBankStatements"></bpel:empty>
+                <bpel:empty name="ManageLoanToCompletion"></bpel:empty>
+            </bpel:sequence>
+            <bpel:else>
+                <bpel:sequence>
+                    <bpel:assign validate="no" name="Rejected">
+                        <bpel:copy>
+                            <bpel:from><bpel:literal xml:space="preserve"><msgs:AddApplicationResponse xmlns:msgs="http://jboss.com/demo/products/soa-p/5.2/URLA1003Messages.xsd" xmlns:tns="http://jboss.com/demo/products/soa-p/5.2/Application.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <msgs:disposition></msgs:disposition>
+  <msgs:explanation></msgs:explanation>
+</msgs:AddApplicationResponse></bpel:literal>
+                        
+                            </bpel:from><bpel:to part="Document" variable="PreQualificationResponse"></bpel:to>
+                    
+                    
+                        </bpel:copy><bpel:copy><bpel:from>
+                            <bpel:literal xml:space="preserve">Rejected</bpel:literal>
+                        </bpel:from>
+                        <bpel:to part="Document" variable="PreQualificationResponse">
+                            <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[awsm:disposition]]></bpel:query>
+                        </bpel:to>
+                    
+                    </bpel:copy>
+                
+                    
+                        <bpel:copy>
+                            <bpel:from part="out" variable="PreQualDecisionServiceResponse">
+                                <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[pqdres:Explanation]]></bpel:query>
+                            </bpel:from>
+                            <bpel:to part="Document" variable="PreQualificationResponse">
+                                <bpel:query queryLanguage="urn:oasis:names:tc:wsbpel:2.0:sublang:xpath1.0"><![CDATA[awsm:explanation]]></bpel:query>
+                            </bpel:to>
+                        </bpel:copy>
+                    </bpel:assign>
+                    <bpel:reply name="ReplyPreQual-Rejected" partnerLink="Borrower" operation="AddApplication" variable="PreQualificationResponse"></bpel:reply>
+                    
+                </bpel:sequence>
+            </bpel:else>
+        </bpel:if>
+        
+        
+        
+        
+    </bpel:sequence>
+</bpel:process>
+

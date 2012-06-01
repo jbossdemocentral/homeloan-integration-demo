@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<smooks-resource-list xmlns="http://www.milyn.org/xsd/smooks-1.1.xsd"
+	xmlns:jb="http://www.milyn.org/xsd/smooks/javabean-1.2.xsd">
+	<params>
+		<param name="inputType">input.xml</param>
+		<param name="stream.filter.type">SAX</param>
+		<param name="input.xml" type="input.type.actived">Workspace://homeloan-origination-esb/esbContent/resources/sampleMessages/PreQualificationDecisionRequest.xml
+		</param>
+	</params>
+	<jb:bean beanId="applicant" class="mortgages.Applicant"
+		createOnElement="/PreQualificationDecisionRequest/Application/Borrowers/Borrower">
+		<jb:value
+			data="/PreQualificationDecisionRequest/Application/Borrowers/Borrower/DOB"
+			decoder="Date" property="dob">
+			<jb:decodeParam name="format">MM/dd/yyyy</jb:decodeParam>
+		</jb:value>
+		<jb:value
+			data="/PreQualificationDecisionRequest/Application/Borrowers/Borrower/Last_Name"
+			property="name" />
+		<jb:value data="/PreQualificationDecisionRequest/CreditScore"
+			decoder="Integer" property="creditScore" />
+	</jb:bean>
+	<jb:bean beanId="loanApp" class="mortgages.LoanApplication"
+		createOnElement="/PreQualificationDecisionRequest/Application">
+		<jb:value data="/PreQualificationDecisionRequest/Application/Amount"
+			decoder="Integer" property="amount" />
+		<jb:value data="/PreQualificationDecisionRequest/Application/Interest_Rate"
+			decoder="BigDecimal" property="approvedRate" />
+		<jb:value
+			data="/PreQualificationDecisionRequest/Application/Number_Of_Months"
+			decoder="Integer" property="lengthYears">
+			<jb:decodeParam name="valuePreprocess">
+				value / 12
+			</jb:decodeParam>
+		</jb:value>
+		<jb:value
+			data="/PreQualificationDecisionRequest/Application/Borrowers/Assets_Liabilities/Cash_Deposits/Cash_Deposit/Amount"
+			decoder="Integer" property="deposit" />
+	</jb:bean>
+	<jb:bean beanId="incomeSource" class="mortgages.IncomeSource"
+		createOnElement="/PreQualificationDecisionRequest/Application/Borrowers/Borrower/Employment_Information/Employment">
+		<jb:value
+			data="/PreQualificationDecisionRequest/Application/Borrowers/Borrower/Employment_Information/Employment/Monthly_Income"
+			decoder="Integer" property="monthlyAmount" />
+		<jb:value
+			data="/PreQualificationDecisionRequest/Application/Borrowers/Borrower/Employment_Information/Employment/Is_Self_Employed"
+			decoder="Boolean" property="selfEmployed" />
+	</jb:bean>
+</smooks-resource-list>

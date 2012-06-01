@@ -1,0 +1,96 @@
+package mortgages.events;
+
+import org.apache.ode.bpel.evt.*;
+import org.jboss.soa.esb.message.Message;
+
+global Message message;
+
+declare NewProcessInstanceEvent
+	@role( event )
+	@timestamp( timestamp )
+end
+
+declare ProcessCompletionEvent 
+	@role( event )
+	@timestamp( timestamp )
+end
+
+declare ProcessInstanceStartedEvent 
+	@role( event )
+	@timestamp( timestamp )
+end
+
+declare ProcessInstanceStateChangeEvent 
+	@role( event )
+	@timestamp( timestamp )
+end
+
+declare ProcessMessageExchangeEvent 
+	@role( event )
+	@timestamp( timestamp )
+end
+
+declare ProcessTerminationEvent 
+	@role( event )
+	@timestamp( timestamp )
+end
+
+declare ActivityEnabledEvent 
+	@role( event )
+	@timestamp( timestamp )
+end
+
+declare ActivityRecoveryEvent
+	@role( event )
+	@timestamp( timestamp )
+end
+
+declare ActivityExecStartEvent 
+	@role( event )
+	@timestamp( timestamp )
+end
+
+declare ActivityExecEndEvent 
+	@role( event )
+	@timestamp( timestamp )
+end
+
+declare ActivityFailureEvent 
+	@role( event )
+	@timestamp( timestamp )
+end
+
+declare PreQualResponseCompleted
+	@role( event )
+	
+	completionTime: long
+	result: String
+end
+
+rule "Correlate raw PreQual activity events"
+	when
+		$start : ActivityExecStartEvent(activityName == "ReceiveLoanApplication", processName.localPart == "HomeLoanPreQualification") 
+				from entry-point "riftsaw"
+		$end : ActivityExecEndEvent(activityName == "ReplyPreQual-Rejected" || == "ReplyPreQual-Approved", processName.localPart == "HomeLoanPreQualification", $start.processInstanceId == processInstanceId, this after[0, 10s] $start) 
+				from entry-point "riftsaw"
+	then
+		PreQualResponseCompleted p = new PreQualResponseCompleted();
+		p.setCompletionTime($end.getTimestamp().getTime() - $start.getTimestamp().getTime());
+		p.setResult($end.getActivityName());
+		
+		entryPoints["bam"].insert(p);
+		System.out.println(p);	
+end
+
+// If the PreQualResponse completion time is greater then 2.5 times  
+// the average of the last 5 PreQualResponse completion times  
+rule "PreQual response completion SLA violation"
+	when
+		$p : PreQualResponseCompleted() from entry-point "bam"
+		$avg : Number( doubleValue > 0 && $p.completionTime > (doubleValue * 2.5) ) from accumulate (
+			PreQualResponseCompleted(this != $p, $t : completionTime) over window:length(5) 
+			from entry-point "bam", average( $t ) )
+	then
+		System.out.println("SLA Violation " + $p.getCompletionTime() + " exceeded the average of " +  $avg);
+		retract($p);
+end

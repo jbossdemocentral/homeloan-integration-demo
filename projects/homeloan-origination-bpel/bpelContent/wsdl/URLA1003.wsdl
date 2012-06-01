@@ -1,0 +1,73 @@
+<wsdl:definitions name="URLA1003"
+					 
+	targetNamespace="http://jboss.com/demo/products/soa-p/5.2/URLA1003.wsdl" 
+	xmlns:tns="http://jboss.com/demo/products/soa-p/5.2/URLA1003.wsdl"
+	xmlns:msgs="http://jboss.com/demo/products/soa-p/5.2/URLA1003Messages.xsd"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" 
+	xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
+
+	<plnk:partnerLinkType name="LendingPLT">
+		<plnk:role name="Lender" portType="tns:URLA1003Interface" />
+	</plnk:partnerLinkType>
+	
+	<wsdl:types>
+		<xsd:schema id="URLA1003" elementFormDefault="qualified"
+			targetNamespace="http://jboss.com/demo/products/soa-p/5.2/URLA1003Messages.xsd"
+			xmlns:tns="http://jboss.com/demo/products/soa-p/5.2/URLA1003Messages.xsd"
+			xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+			xmlns:app="http://jboss.com/demo/products/soa-p/5.2/Application.xsd">
+
+			<xsd:import id="Application" schemaLocation="../schema/Application.xsd"
+				namespace="http://jboss.com/demo/products/soa-p/5.2/Application.xsd" />
+			<xsd:element name="AddApplicationRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element ref="app:Application" minOccurs="1" maxOccurs="1"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="AddApplicationResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="disposition" type="xsd:string" />
+						<xsd:element name="interestRate" type="xsd:string" />
+						<xsd:element name="explanation" type="xsd:string" />
+						<xsd:element name="insuranceCost" type="xsd:string" />
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+	</wsdl:types>
+	
+	<wsdl:message name="AddApplicationRequest">
+		<wsdl:part name="Document" element="msgs:AddApplicationRequest" />
+	</wsdl:message>
+	<wsdl:message name="AddApplicationResponse">
+		<wsdl:part name="Document" element="msgs:AddApplicationResponse" />
+	</wsdl:message>
+	
+	<wsdl:portType name="URLA1003Interface">		<wsdl:operation name="AddApplication">
+			<wsdl:input message="tns:AddApplicationRequest" />
+			<wsdl:output message="tns:AddApplicationResponse" />
+		</wsdl:operation>	</wsdl:portType>
+	
+	<wsdl:binding name="URLA1003" type="tns:URLA1003Interface">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document" />
+		<wsdl:operation name="AddApplication">
+			<soap:operation soapAction="http://jboss.com/demo/products/soa-p/5.2/URLA1003.wsdl-AddApplication" style="document" />
+			<wsdl:input>
+				<soap:body use="literal" />
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	
+	<wsdl:service name="URLA1003Port">
+		<wsdl:port name="URLA1003Port" binding="tns:URLA1003">
+			<soap:address location="http://localhost:8080/JBHomeLoans/HomeLoanPreQualification" />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>
