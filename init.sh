@@ -81,7 +81,6 @@ else
 	unzip -q -d target $SRC_DIR/$SOA_P
 fi
 
-
 # Unzip the jboss-brms-manager.zip from JBoss BRMS Deployable
 echo Unpacking JBoss Enterprise BRMS 5.2...
 echo
@@ -111,4 +110,3 @@ cp support/droolsfusion-eventlistener.jar $SERVER_DIR/deploy/riftsaw.sar/lib
 
 echo Integration 5.2 Home Loan Demo Setup Complete.
 echo
-
