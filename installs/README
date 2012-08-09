@@ -5,3 +5,8 @@ Download the following from the JBoss Customer Portal
 
 and copy to this directory for the init.sh script to work.
 
+Ensure that these files are executable by running:
+
+chmod +x <path-to-project>/installs/brms-p-5.2.0.GA-deployable.zip
+chmod +x <path-to-project>/installs/soa-p-5.2.0.GA.zip
+
