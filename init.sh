@@ -3,8 +3,9 @@ JBOSS_HOME=./target/jboss-soa-p-5
 SERVER_DIR=$JBOSS_HOME/jboss-as/server/default
 INBOUND_DIR=/tmp/inboundLoanApplications
 SRC_DIR=./installs
-SOA_P=soa-p-5.2.0.GA.zip
-BRMS=brms-p-5.2.0.GA-deployable.zip
+SOA_P=soa-p-5.3.0.GA.zip
+BRMS=brms-p-5.3.0.GA-deployable.zip
+VERSION=5.3.0.GA
 
 
 echo
@@ -63,26 +64,26 @@ fi
 
 # Move the old JBoss instance, if it exists, to the OLD position
 if [ -x $JBOSS_HOME ]; then
-	echo "  - existing JBoss Enterprise SOA Platform 5.2 detected..."
+	echo "  - existing JBoss Enterprise SOA Platform $VERSION detected..."
 	echo
-	echo "  - moving existing JBoss Enterprise SOA Platform 5.2 aside..."
+	echo "  - moving existing JBoss Enterprise SOA Platform $VERSION aside..."
 	echo
   rm -rf $JBOSS_HOME.OLD
   mv $JBOSS_HOME $JBOSS_HOME.OLD
 
 	# Unzip the JBoss SOA-P instance
-	echo Unpacking JBoss Enterprise SOA Platform 5.2...
+	echo Unpacking JBoss Enterprise SOA Platform $VERSION...
 	echo
 	unzip -q -d target $SRC_DIR/$SOA_P
 else
 	# Unzip the JBoss SOA-P instance
-	echo Unpacking new JBoss Enterprise SOA Platform 5.2...
+	echo Unpacking new JBoss Enterprise SOA Platform $VERSION...
 	echo
 	unzip -q -d target $SRC_DIR/$SOA_P
 fi
 
 # Unzip the jboss-brms-manager.zip from JBoss BRMS Deployable
-echo Unpacking JBoss Enterprise BRMS 5.2...
+echo Unpacking JBoss Enterprise BRMS $VERSION...
 echo
 unzip -q $SRC_DIR/$BRMS jboss-brms-manager.zip 
 
@@ -108,5 +109,5 @@ echo "  - copying custom RiftSaw event listner implementation jar to project..."
 echo 
 cp support/droolsfusion-eventlistener.jar $SERVER_DIR/deploy/riftsaw.sar/lib
 
-echo Integration 5.2 Home Loan Demo Setup Complete.
+echo Integration $VERSION Home Loan Demo Setup Complete.
 echo
