@@ -1,0 +1,1956 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project activeEnvironment="Default" name="homeloan-origination-esb" soapui-version="4.5.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="CreditReportSoap" type="wsdl" bindingName="{http://jboss.com/demo/products/soa-p/5.2/CreditReport.wsdl}CreditReportSoap" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/JBHomeLoans/CreditReport?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/JBHomeLoans/CreditReport?wsdl"><con:part><con:url>http://localhost:8080/JBHomeLoans/CreditReport?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="CreditReport" targetNamespace="http://jboss.com/demo/products/soa-p/5.2/CreditReport.wsdl" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://jboss.com/demo/products/soa-p/5.2/CreditReport.wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema elementFormDefault="qualified" targetNamespace="http://jboss.com/demo/products/soa-p/5.2/CreditReport.wsdl" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+      <xsd:element name="creditQuery">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="firstName" type="xsd:string"/>
+            <xsd:element name="lastName" type="xsd:string"/>
+            <xsd:element name="dob" type="xsd:string"/>
+            <xsd:element name="ssn" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="creditReport">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="firstName" type="xsd:string"/>
+            <xsd:element name="lastName" type="xsd:string"/>
+            <xsd:element name="dob" type="xsd:string"/>
+            <xsd:element name="ssn" type="xsd:string"/>
+            <xsd:element name="score" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="CreditReportResponse">
+    <wsdl:part element="tns:creditReport" name="Document"/>
+  </wsdl:message>
+  <wsdl:message name="CreditReportRequest">
+    <wsdl:part element="tns:creditQuery" name="Document"/>
+  </wsdl:message>
+  <wsdl:portType name="CreditReportPortType">
+    <wsdl:operation name="CreditReport">
+      <wsdl:input message="tns:CreditReportRequest"/>
+      <wsdl:output message="tns:CreditReportResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CreditReportSoap" type="tns:CreditReportPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="CreditReport">
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CreditReportService">
+    <wsdl:port binding="tns:CreditReportSoap" name="CreditReportSoap">
+      <soap:address location="http://localhost:8080/JBHomeLoans/CreditReport"/>
+    </wsdl:port>
+  </wsdl:service>
+  <plnk:partnerLinkType name="CreditRatingPLT">
+    <plnk:role name="ConsumerReportingAgency" portType="tns:CreditReportPortType"/>
+  </plnk:partnerLinkType>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/JBHomeLoans/CreditReport</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="CreditReport" bindingOperationName="CreditReport" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/JBHomeLoans/CreditReport</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cred="http://jboss.com/demo/products/soa-p/5.2/CreditReport.wsdl">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <cred:creditQuery>
+         <cred:firstName>John</cred:firstName>
+         <cred:lastName>Doe</cred:lastName>
+         <cred:dob>01/01/1970</cred:dob>
+         <cred:ssn>789-456-123</cred:ssn>
+      </cred:creditQuery>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://jboss.com/demo/products/soa-p/5.2/CreditReport.wsdl/CreditReportPortType/CreditReportRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="PreQualDecisionServiceBinding" type="wsdl" bindingName="{http://soa.jboss.org/homeloan-origination-demo}PreQualDecisionServiceBinding" soapVersion="1_1" anonymous="optional" definition="http://localhost:8080/homeloan-origination-esb/ebws/homeloan-origination-demo/PreQualDecisionService?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:8080/homeloan-origination-esb/ebws/homeloan-origination-demo/PreQualDecisionService?wsdl"><con:part><con:url>http://localhost:8080/homeloan-origination-esb/ebws/homeloan-origination-demo/PreQualDecisionService?wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://soa.jboss.org/homeloan-origination-demo" xmlns:esbns1="http://jboss.com/demo/products/soa-p/5.2/PreQualificationDecisionRequest.xsd" xmlns:esbns2="http://jboss.com/demo/products/soa-p/5.2/PreQualificationDecisionResponse.xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://soa.jboss.org/homeloan-origination-demo" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xs:schema targetNamespace="http://jboss.com/demo/products/soa-p/5.2/PreQualificationDecisionRequest.xsd" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:include schemaLocation="http://localhost:8080/homeloan-origination-esb/ebws/homeloan-origination-demo/PreQualDecisionService?wsdl&amp;resource=resources/schema/PreQualificationDecisionRequest.xsd"/>
+    </xs:schema>
+    <xs:schema targetNamespace="http://jboss.com/demo/products/soa-p/5.2/PreQualificationDecisionResponse.xsd" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:include schemaLocation="http://localhost:8080/homeloan-origination-esb/ebws/homeloan-origination-demo/PreQualDecisionService?wsdl&amp;resource=resources/schema/PreQualificationDecisionResponse.xsd"/>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="PreQualDecisionServiceReq">
+    <wsdl:part element="esbns1:PreQualificationDecisionRequest" name="in"/>
+  </wsdl:message>
+  <wsdl:message name="PreQualDecisionServiceRes">
+    <wsdl:part element="esbns2:PreQualificationDecisionResponse" name="out"/>
+  </wsdl:message>
+  <wsdl:portType name="PreQualDecisionServicePortType">
+    <wsdl:operation name="PreQualDecisionServiceOp">
+      <wsdl:input message="tns:PreQualDecisionServiceReq" name="PreQualDecisionServiceReq"/>
+      <wsdl:output message="tns:PreQualDecisionServiceRes" name="PreQualDecisionServiceRes"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="PreQualDecisionServiceBinding" type="tns:PreQualDecisionServicePortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="PreQualDecisionServiceOp">
+      <soap:operation soapAction="http://soa.jboss.org/homeloan-origination-demo/PreQualDecisionServiceOp"/>
+      <wsdl:input name="PreQualDecisionServiceReq">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="PreQualDecisionServiceRes">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="PreQualDecisionServiceService">
+    <wsdl:port binding="tns:PreQualDecisionServiceBinding" name="PreQualDecisionServicePortType">
+      <soap:address location="http://localhost:8080/homeloan-origination-esb/ebws/homeloan-origination-demo/PreQualDecisionService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part><con:part><con:url>http://localhost:8080/homeloan-origination-esb/ebws/homeloan-origination-demo/PreQualDecisionService?wsdl&amp;resource=resources/schema/PreQualificationDecisionRequest.xsd</con:url><con:content><![CDATA[<schema elementFormDefault="qualified" targetNamespace="http://jboss.com/demo/products/soa-p/5.2/PreQualificationDecisionRequest.xsd" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:app="http://jboss.com/demo/products/soa-p/5.2/Application.xsd" xmlns:tns="http://jboss.com/demo/products/soa-p/5.2/PreQualificationDecisionRequest.xsd">
+  <import namespace="http://jboss.com/demo/products/soa-p/5.2/Application.xsd" schemaLocation="http://localhost:8080/homeloan-origination-esb/ebws/homeloan-origination-demo/PreQualDecisionService?wsdl&amp;resource=resources/schema/Application.xsd"/>
+  <element name="PreQualificationDecisionRequest" type="tns:PreQualificationDecisionRequestType"/>
+  <complexType name="PreQualificationDecisionRequestType">
+    <sequence>
+      <element ref="app:Application"/>
+      <element name="CreditScore" type="tns:CreditScoreType"/>
+    </sequence>
+  </complexType>
+  <simpleType name="CreditScoreType">
+    <restriction base="int">
+      <minInclusive value="0"/>
+      <maxInclusive value="850"/>
+    </restriction>
+  </simpleType>
+</schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>http://localhost:8080/homeloan-origination-esb/ebws/homeloan-origination-demo/PreQualDecisionService?wsdl&amp;resource=resources/schema/Application.xsd</con:url><con:content><![CDATA[<xsd:schema elementFormDefault="qualified" id="Application" targetNamespace="http://jboss.com/demo/products/soa-p/5.2/Application.xsd" xmlns:tns="http://jboss.com/demo/products/soa-p/5.2/Application.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="Application" type="tns:ApplicationType"/>
+  <xsd:complexType name="ApplicationType">
+    <xsd:all maxOccurs="1" minOccurs="0">
+      <!--Rep_Identifier is for routing purposes only, and does not map to 
+				a field on the physical application-->
+      <xsd:element maxOccurs="1" minOccurs="0" name="Rep_Identifier">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="100"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <!--Source_Identifier is for office tracking purposes only, and does 
+				not map to a field on the physical application-->
+      <xsd:element maxOccurs="1" minOccurs="0" name="Source_Identifier">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="100"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <!--the Other_Income_Included element maps to the checkbox preceding 
+				"the income or assets of a person other than the 'Borrower' (including the 
+				Borrower's spouse) will be used as a basis for loan qualification"-->
+      <xsd:element maxOccurs="1" minOccurs="0" name="Other_Income_Included" type="xsd:boolean"/>
+      <!--the Other_Liabilities_Included element maps to the checkbox preceding 
+				"the income or assets of the Borrower's spouse will not be used as a basis 
+				for loan qualification, but his or her liabilities must be considered because..."-->
+      <xsd:element maxOccurs="1" minOccurs="0" name="Other_Liabilities_Included" type="xsd:boolean"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Agency_Case_Number">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="50"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Lender_Case_Number">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="50"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <!--the Type element maps to "Mortgage Applied For"-->
+      <xsd:element maxOccurs="1" minOccurs="0" name="Type">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Conventional"/>
+            <xsd:enumeration value="FHA"/>
+            <xsd:enumeration value="VA"/>
+            <xsd:enumeration value="FmHA"/>
+            <xsd:enumeration value="Other"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <!--"Other"-->
+      <xsd:element maxOccurs="1" minOccurs="0" name="Type_Description">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="1000"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Amount">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Interest_Rate">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="4"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Number_Of_Months">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:integer">
+            <xsd:minInclusive value="0"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Amortization_Type">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Fixed_Rate"/>
+            <xsd:enumeration value="GPM"/>
+            <xsd:enumeration value="Other"/>
+            <xsd:enumeration value="ARM"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <!--"Other (explain)" or "ARM (type)"-->
+      <xsd:element maxOccurs="1" minOccurs="0" name="Amortization_Type_Description">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="1000"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Property" type="tns:PropertyType"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Purpose" type="tns:PurposeType"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Borrowers">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="2" minOccurs="0" name="Borrower" type="tns:BorrowerType"/>
+            <xsd:element maxOccurs="1" minOccurs="0" name="Housing_Expense">
+              <xsd:complexType>
+                <xsd:sequence>
+                  <xsd:element maxOccurs="2" minOccurs="0" name="Expense" type="tns:ExpenseType"/>
+                </xsd:sequence>
+              </xsd:complexType>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="Assets_Liabilities" type="tns:AssetsLiabilitiesType"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Transaction" type="tns:TransactionType"/>
+    </xsd:all>
+    <xsd:attribute name="Application_ID" use="required">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:minLength value="1"/>
+          <xsd:maxLength value="32"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+    <xsd:attribute name="Date_Created" use="optional">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:dateTime"/>
+      </xsd:simpleType>
+    </xsd:attribute>
+  </xsd:complexType>
+  <xsd:complexType name="PropertyType">
+    <xsd:all maxOccurs="1" minOccurs="1">
+      <!--the Type element maps to "Property Will Be"-->
+      <xsd:element maxOccurs="1" minOccurs="0" name="Type">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Primary_Residence"/>
+            <xsd:enumeration value="Secondary_Residence"/>
+            <xsd:enumeration value="Investment"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Address_1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="255"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Address_2">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="255"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="City">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="50"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="State">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="50"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Postal_Code">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="20"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="County">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="50"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Number_Of_Units">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:integer">
+            <xsd:minInclusive value="0"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Year_Built">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:integer">
+            <xsd:minInclusive value="0"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Legal_Description">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="5000"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:all>
+  </xsd:complexType>
+  <xsd:complexType name="PurposeType">
+    <xsd:all maxOccurs="1" minOccurs="1">
+      <!--the Type element maps to "Purpose of Loan"-->
+      <xsd:element maxOccurs="1" minOccurs="0" name="Type">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Purchase"/>
+            <xsd:enumeration value="Refinance"/>
+            <xsd:enumeration value="Construction"/>
+            <xsd:enumeration value="Construction_Permanent"/>
+            <xsd:enumeration value="Other"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <!--"Other"-->
+      <xsd:element maxOccurs="1" minOccurs="0" name="Type_Description">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="1000"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Title_Holder_Name">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="255"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Manner_Title_Held">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="255"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Source_Of_Down_Payment">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="1000"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <!--the Estate_Held element maps to "Estate Will Be Held In"-->
+      <xsd:element maxOccurs="1" minOccurs="0" name="Estate_Held">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Fee_Simple"/>
+            <xsd:enumeration value="Leasehold"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <!--"Leasehold (show expiration date)"-->
+      <xsd:element maxOccurs="1" minOccurs="0" name="Estate_Held_Description">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="1000"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Construction" type="tns:ConstructionType"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Refinance" type="tns:RefinanceType"/>
+    </xsd:all>
+  </xsd:complexType>
+  <xsd:complexType name="ConstructionType">
+    <xsd:all maxOccurs="1" minOccurs="1">
+      <xsd:element maxOccurs="1" minOccurs="0" name="Year_Lot_Acquired">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:integer">
+            <xsd:minInclusive value="0"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Original_Cost">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Amount_Existing_Liens">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Present_Value_Of_Lot">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Cost_Of_Improvements">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:all>
+  </xsd:complexType>
+  <xsd:complexType name="RefinanceType">
+    <xsd:all maxOccurs="1" minOccurs="1">
+      <xsd:element maxOccurs="1" minOccurs="0" name="Year_Acquired">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:integer">
+            <xsd:minInclusive value="0"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Original_Cost">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Amount_Existing_Liens">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Purpose">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="1000"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <!--the Improvement Type element maps to "Describe Improvements"-->
+      <xsd:element maxOccurs="1" minOccurs="0" name="Improvement_Type">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="None"/>
+            <xsd:enumeration value="Made"/>
+            <xsd:enumeration value="To_Be_Made"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Improvements">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="1000"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Improvements_Cost">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:all>
+  </xsd:complexType>
+  <xsd:complexType name="BorrowerType">
+    <xsd:all maxOccurs="1" minOccurs="1">
+      <xsd:element maxOccurs="1" minOccurs="0" name="Title">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="50"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="First_Name">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="50"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Middle_Name">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="50"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Last_Name">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="50"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="SSN">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="50"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Phone">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="20"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="DOB">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:token">
+            <xsd:pattern value="[0-1]?[0-9]/[0-3]?[0-9]/[12][0-9][0-9][0-9]"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Years_School">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Marital_Status">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Not_Specified"/>
+            <xsd:enumeration value="Married"/>
+            <xsd:enumeration value="Unmarried"/>
+            <xsd:enumeration value="Separated"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Dependents">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:integer">
+            <xsd:minInclusive value="0"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Dependents_Ages">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="100"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Addresses">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="3" minOccurs="0" name="Address" type="tns:AddressType"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Employment_Information">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="1" minOccurs="0" name="Years_In_Profession">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:decimal">
+                  <xsd:fractionDigits value="2"/>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:element>
+            <xsd:element maxOccurs="3" minOccurs="0" name="Employment" type="tns:EmploymentType"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Income" type="tns:IncomeType"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Declarations" type="tns:DeclarationsType"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Government_Monitoring" type="tns:GovernmentMonitoringType"/>
+    </xsd:all>
+    <xsd:attribute name="Borrower_Type" use="required">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Borrower"/>
+          <xsd:enumeration value="Co_Borrower"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+  </xsd:complexType>
+  <xsd:complexType name="AddressType">
+    <xsd:all maxOccurs="1" minOccurs="1">
+      <xsd:element maxOccurs="1" minOccurs="0" name="Type">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Not_Specified"/>
+            <xsd:enumeration value="Own"/>
+            <xsd:enumeration value="Rent"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Address_1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="255"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Address_2">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="255"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="City">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="50"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="State">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="50"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Postal_Code">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="20"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Number_Years">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:all>
+    <xsd:attribute name="Address_Sequence" use="required">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:positiveInteger">
+          <xsd:enumeration value="1"/>
+          <xsd:enumeration value="2"/>
+          <xsd:enumeration value="3"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+  </xsd:complexType>
+  <xsd:complexType name="EmploymentType">
+    <xsd:all maxOccurs="1" minOccurs="1">
+      <!--the Is_Self_Employed element maps to the "Self Employed" checkbox-->
+      <xsd:element maxOccurs="1" minOccurs="0" name="Is_Self_Employed" type="xsd:boolean"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Employer">
+        <xsd:complexType>
+          <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="0" name="Name">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                  <xsd:minLength value="0"/>
+                  <xsd:maxLength value="100"/>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="Address_1">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                  <xsd:minLength value="0"/>
+                  <xsd:maxLength value="255"/>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="Address_2">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                  <xsd:minLength value="0"/>
+                  <xsd:maxLength value="255"/>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="City">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                  <xsd:minLength value="0"/>
+                  <xsd:maxLength value="50"/>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="State">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                  <xsd:minLength value="0"/>
+                  <xsd:maxLength value="50"/>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="Postal_Code">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                  <xsd:minLength value="0"/>
+                  <xsd:maxLength value="20"/>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:element>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Position">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="100"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Title">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="100"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Type_Of_Business">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="100"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Business_Phone">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="20"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Date_From">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:token">
+            <xsd:pattern value="[0-1]?[0-9]/[0-3]?[0-9]/[12][0-9][0-9][0-9]"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Date_To">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:token">
+            <xsd:pattern value="[0-1]?[0-9]/[0-3]?[0-9]/[12][0-9][0-9][0-9]"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Monthly_Income">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:all>
+    <xsd:attribute name="Employment_Sequence" use="required">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:positiveInteger">
+          <xsd:enumeration value="1"/>
+          <xsd:enumeration value="2"/>
+          <xsd:enumeration value="3"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+  </xsd:complexType>
+  <xsd:complexType name="IncomeType">
+    <xsd:all maxOccurs="1" minOccurs="1">
+      <xsd:element maxOccurs="1" minOccurs="0" name="Base_Employment">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Overtime">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Bonuses">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Commissions">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Dividents_Interest">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Net_Rental_Income">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Other_1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Other_2">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Other_Income_Sources">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="3" minOccurs="0" name="Other_Income" type="tns:OtherIncomeType"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:all>
+  </xsd:complexType>
+  <xsd:complexType name="OtherIncomeType">
+    <xsd:all>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Description">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="1000"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Amount">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:all>
+    <xsd:attribute name="Other_Income_Sequence" use="required">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:positiveInteger">
+          <xsd:enumeration value="1"/>
+          <xsd:enumeration value="2"/>
+          <xsd:enumeration value="3"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+  </xsd:complexType>
+  <xsd:complexType name="ExpenseType">
+    <xsd:all maxOccurs="1" minOccurs="1">
+      <xsd:element maxOccurs="1" minOccurs="0" name="Rent">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="First_Mortgage">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Other_Financing">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Hazard_Insurance">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Real_Estate_Taxes">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Mortgage_Insurance">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Homeowner_Assn_Dues">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Other">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:all>
+    <xsd:attribute name="Expense_Type" use="required">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Present"/>
+          <xsd:enumeration value="Proposed"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+  </xsd:complexType>
+  <xsd:complexType name="AssetsLiabilitiesType">
+    <xsd:all maxOccurs="1" minOccurs="1">
+      <xsd:element maxOccurs="1" minOccurs="0" name="Completed_Type">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Jointly"/>
+            <xsd:enumeration value="Not_Jointly"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Real_Estate_Owned">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Retirement_Fund">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Businesses_Owned">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Cash_Deposits">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="2" minOccurs="0" name="Cash_Deposit" type="tns:CashDepositType"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Checking_Savings">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="Account" type="tns:CheckingSavingsAccountType"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Stocks_Bonds">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="3" minOccurs="0" name="Account" type="tns:StocksBondsAccountType"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Life_Insurance">
+        <xsd:complexType>
+          <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="0" name="Net_Cash_Value">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:decimal">
+                  <xsd:fractionDigits value="2"/>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="Face_Amount">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:decimal">
+                  <xsd:fractionDigits value="2"/>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:element>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Automobiles">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="3" minOccurs="0" name="Automobile" type="tns:AutomobileType"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Other_Assets">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="3" minOccurs="0" name="Asset" type="tns:AssetType"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Liabilities">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="unbounded" minOccurs="0" name="Liability" type="tns:LiabilityType"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Alimony_Child_Support">
+        <xsd:complexType>
+          <xsd:all>
+            <xsd:element maxOccurs="1" minOccurs="0" name="Owed_To">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                  <xsd:minLength value="0"/>
+                  <xsd:maxLength value="100"/>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="Monthly_Payment">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:decimal">
+                  <xsd:fractionDigits value="2"/>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:element>
+            <xsd:element maxOccurs="1" minOccurs="0" name="Months_Left">
+              <xsd:simpleType>
+                <xsd:restriction base="xsd:decimal">
+                  <xsd:fractionDigits value="2"/>
+                </xsd:restriction>
+              </xsd:simpleType>
+            </xsd:element>
+          </xsd:all>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Job_Related_Expenses">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="2" minOccurs="0" name="Job_Related_Expense" type="tns:JobRelatedExpenseType"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Real_Estate">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="3" minOccurs="0" name="Property" type="tns:RealEstatePropertyType"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Credit_Previously_Received">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="3" minOccurs="0" name="Credit_Received" type="tns:CreditReceivedType"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:all>
+  </xsd:complexType>
+  <xsd:complexType name="CashDepositType">
+    <xsd:all maxOccurs="1" minOccurs="1">
+      <xsd:element maxOccurs="1" minOccurs="0" name="Description">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="1000"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Amount">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:all>
+    <xsd:attribute name="Cash_Deposit_Sequence" use="required">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:positiveInteger">
+          <xsd:enumeration value="1"/>
+          <xsd:enumeration value="2"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+  </xsd:complexType>
+  <xsd:complexType name="CheckingSavingsAccountType">
+    <xsd:all maxOccurs="1" minOccurs="1">
+      <xsd:element maxOccurs="1" minOccurs="0" name="Account_Number">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="100"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Amount">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Name">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="100"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Address_1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="255"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Address_2">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="255"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="City">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="50"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="State">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="50"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Postal_Code">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="20"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:all>
+    <xsd:attribute name="Account_Sequence" use="required">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:positiveInteger"/>
+      </xsd:simpleType>
+    </xsd:attribute>
+  </xsd:complexType>
+  <xsd:complexType name="StocksBondsAccountType">
+    <xsd:all maxOccurs="1" minOccurs="1">
+      <xsd:element maxOccurs="1" minOccurs="0" name="Description">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="1000"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Amount">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:all>
+    <xsd:attribute name="Account_Sequence" use="required">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:positiveInteger">
+          <xsd:enumeration value="1"/>
+          <xsd:enumeration value="2"/>
+          <xsd:enumeration value="3"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+  </xsd:complexType>
+  <xsd:complexType name="AutomobileType">
+    <xsd:all maxOccurs="1" minOccurs="1">
+      <xsd:element maxOccurs="1" minOccurs="0" name="Description">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="1000"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Amount">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:all>
+    <xsd:attribute name="Automobile_Sequence" use="required">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:positiveInteger">
+          <xsd:enumeration value="1"/>
+          <xsd:enumeration value="2"/>
+          <xsd:enumeration value="3"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+  </xsd:complexType>
+  <xsd:complexType name="AssetType">
+    <xsd:all maxOccurs="1" minOccurs="1">
+      <xsd:element maxOccurs="1" minOccurs="0" name="Description">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="1000"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Amount">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:all>
+    <xsd:attribute name="Asset_Sequence" use="required">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:positiveInteger">
+          <xsd:enumeration value="1"/>
+          <xsd:enumeration value="2"/>
+          <xsd:enumeration value="3"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+  </xsd:complexType>
+  <xsd:complexType name="LiabilityType">
+    <xsd:all maxOccurs="1" minOccurs="1">
+      <xsd:element maxOccurs="1" minOccurs="0" name="Account_Number">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="100"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Monthly_Payment">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Months_Left">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Unpaid_Balance">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Is_To_Be_Paid_Off" type="xsd:boolean"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Name">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="100"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Address_1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="255"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Address_2">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="255"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="City">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="50"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="State">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="50"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Postal_Code">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="20"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:all>
+    <xsd:attribute name="Liability_Sequence" use="required">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:positiveInteger"/>
+      </xsd:simpleType>
+    </xsd:attribute>
+  </xsd:complexType>
+  <xsd:complexType name="JobRelatedExpenseType">
+    <xsd:all maxOccurs="1" minOccurs="1">
+      <xsd:element maxOccurs="1" minOccurs="0" name="Description">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="1000"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Monthly_Payment">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Months_Left">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:all>
+    <xsd:attribute name="Job_Related_Expense_Sequence" use="required">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:positiveInteger">
+          <xsd:enumeration value="1"/>
+          <xsd:enumeration value="2"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+  </xsd:complexType>
+  <xsd:complexType name="RealEstatePropertyType">
+    <xsd:all maxOccurs="1" minOccurs="1">
+      <xsd:element maxOccurs="1" minOccurs="0" name="Address_1">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="255"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Address_2">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="255"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="City">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="50"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="State">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="50"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Postal_Code">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="20"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Status">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Not_Specified"/>
+            <xsd:enumeration value="Sold"/>
+            <xsd:enumeration value="Pending_Sale"/>
+            <xsd:enumeration value="Rental_Being_Held_For_Income"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Type">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Not_Specified"/>
+            <xsd:enumeration value="_2_4_PLEX"/>
+            <xsd:enumeration value="COM_NR"/>
+            <xsd:enumeration value="COM_R"/>
+            <xsd:enumeration value="CONDO"/>
+            <xsd:enumeration value="COOP"/>
+            <xsd:enumeration value="FARM"/>
+            <xsd:enumeration value="LAND"/>
+            <xsd:enumeration value="MIXED"/>
+            <xsd:enumeration value="MOBIL"/>
+            <xsd:enumeration value="MULTI"/>
+            <xsd:enumeration value="SFR"/>
+            <xsd:enumeration value="TOWN"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Market_Value">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Mortgages_Liens">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Gross_Rental">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Mortgage_Payments">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Insurance_Misc">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Net_Rental">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:all>
+    <xsd:attribute name="Property_Sequence" use="required">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:positiveInteger"/>
+      </xsd:simpleType>
+    </xsd:attribute>
+  </xsd:complexType>
+  <xsd:complexType name="CreditReceivedType">
+    <xsd:all maxOccurs="1" minOccurs="1">
+      <xsd:element maxOccurs="1" minOccurs="0" name="Alternate_Name">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="100"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Creditor_Name">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="100"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Account_Number">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="100"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:all>
+    <xsd:attribute name="Credit_Received_Sequence" use="required">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:positiveInteger">
+          <xsd:enumeration value="1"/>
+          <xsd:enumeration value="2"/>
+          <xsd:enumeration value="3"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+  </xsd:complexType>
+  <xsd:complexType name="TransactionType">
+    <xsd:all maxOccurs="1" minOccurs="1">
+      <xsd:element maxOccurs="1" minOccurs="0" name="Purchase_Price">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Alterations_Improvements">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Land">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Refinance">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Prepaid_Items">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Closing_Costs">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="PMI_MIP">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Discount">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Subordinate_Financing">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Closing_Costs_Seller">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Loan_Amount">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="PMI_MIP_Financed">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Other_Credits">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element maxOccurs="3" minOccurs="0" name="Other_Credit" type="tns:OtherCreditType"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:all>
+  </xsd:complexType>
+  <xsd:complexType name="OtherCreditType">
+    <xsd:all>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Description">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:minLength value="0"/>
+            <xsd:maxLength value="1000"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Amount">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:decimal">
+            <xsd:fractionDigits value="2"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:all>
+    <xsd:attribute name="Other_Credit_Sequence" use="required">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:positiveInteger">
+          <xsd:enumeration value="1"/>
+          <xsd:enumeration value="2"/>
+          <xsd:enumeration value="3"/>
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+  </xsd:complexType>
+  <xsd:complexType name="DeclarationsType">
+    <xsd:all maxOccurs="1" minOccurs="1">
+      <xsd:element maxOccurs="1" minOccurs="0" name="Any_Judgments" type="xsd:boolean"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Declared_Bankrupt" type="xsd:boolean"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Property_Foreclosed" type="xsd:boolean"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Lawsuit" type="xsd:boolean"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Obligated_On_Any_Loan" type="xsd:boolean"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Delinquent" type="xsd:boolean"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Obligated_To_Pay_Alimony" type="xsd:boolean"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Borrowed_Down_Payment" type="xsd:boolean"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Co_Maker_Note" type="xsd:boolean"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="U_S_Citizen" type="xsd:boolean"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Permanent_Resident" type="xsd:boolean"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Primary_Residence" type="xsd:boolean"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Ownership_Interest" type="xsd:boolean"/>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Property_Type">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Not_Specified"/>
+            <xsd:enumeration value="Principal_Residence"/>
+            <xsd:enumeration value="Second_Home"/>
+            <xsd:enumeration value="Investment_Property"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Title_Held">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Not_Specified"/>
+            <xsd:enumeration value="Solely_By_Yourself"/>
+            <xsd:enumeration value="Jointly_With_Your_Spouse"/>
+            <xsd:enumeration value="Jointly_With_Another_Person"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:all>
+  </xsd:complexType>
+  <xsd:complexType name="GovernmentMonitoringType">
+    <xsd:all maxOccurs="1" minOccurs="1">
+      <xsd:element maxOccurs="1" minOccurs="0" name="Race">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Not_Specified"/>
+            <xsd:enumeration value="I_do_not_wish_to_furnish_this_information"/>
+            <xsd:enumeration value="American_Indian_or_Alaskan_Native"/>
+            <xsd:enumeration value="Asian_or_Pacific_Islander"/>
+            <xsd:enumeration value="Black_not_of_Hispanic_origin"/>
+            <xsd:enumeration value="Hispanic"/>
+            <xsd:enumeration value="White_not_of_Hispanic_origin"/>
+            <xsd:enumeration value="Other"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+      <xsd:element maxOccurs="1" minOccurs="0" name="Sex">
+        <xsd:simpleType>
+          <xsd:restriction base="xsd:string">
+            <xsd:enumeration value="Not_Specified"/>
+            <xsd:enumeration value="Female"/>
+            <xsd:enumeration value="Male"/>
+          </xsd:restriction>
+        </xsd:simpleType>
+      </xsd:element>
+    </xsd:all>
+  </xsd:complexType>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part><con:part><con:url>http://localhost:8080/homeloan-origination-esb/ebws/homeloan-origination-demo/PreQualDecisionService?wsdl&amp;resource=resources/schema/PreQualificationDecisionResponse.xsd</con:url><con:content><![CDATA[<xsd:schema elementFormDefault="qualified" targetNamespace="http://jboss.com/demo/products/soa-p/5.2/PreQualificationDecisionResponse.xsd" xmlns:tns="http://jboss.com/demo/products/soa-p/5.2/PreQualificationDecisionResponse.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <xsd:element name="PreQualificationDecisionResponse" type="tns:PreQualificationDecisionResponseType"/>
+  <xsd:complexType name="PreQualificationDecisionResponseType">
+    <xsd:sequence>
+      <xsd:element name="Approved" type="xsd:boolean"/>
+      <xsd:element name="ApprovedRate" type="xsd:float"/>
+      <xsd:element name="Explanation" type="xsd:string"/>
+      <xsd:element name="InsuranceCost" type="tns:MoneyType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:simpleType name="MoneyType">
+    <xsd:restriction base="xsd:decimal">
+      <xsd:fractionDigits value="2"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>]]></con:content><con:type>http://www.w3.org/2001/XMLSchema</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/homeloan-origination-esb/ebws/homeloan-origination-demo/PreQualDecisionService</con:endpoint></con:endpoints><con:operation isOneWay="false" action="http://soa.jboss.org/homeloan-origination-demo/PreQualDecisionServiceOp" name="PreQualDecisionServiceOp" bindingOperationName="PreQualDecisionServiceOp" type="Request-Response" outputName="PreQualDecisionServiceRes" inputName="PreQualDecisionServiceReq" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Sample Request"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/homeloan-origination-esb/ebws/homeloan-origination-demo/PreQualDecisionService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/"
+xmlns:preq="http://jboss.com/demo/products/soa-p/5.2/PreQualificationDecisionRequest.xsd"
+xmlns:app="http://jboss.com/demo/products/soa-p/5.2/Application.xsd">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <preq:PreQualificationDecisionRequest>
+	<app:Application Application_ID="1" Date_Created="2011-09-11T09:00:00">
+		<app:Type>Conventional</app:Type>
+		<app:Type_Description />
+		<app:Amount>800000</app:Amount>
+		<app:Interest_Rate>3.75</app:Interest_Rate>
+		<app:Number_Of_Months>360</app:Number_Of_Months>
+		<app:Amortization_Type>Fixed_Rate</app:Amortization_Type>
+		<app:Property>
+			<app:Type>Primary_Residence</app:Type>
+			<app:Address_1>314 Littleton Road</app:Address_1>
+			<app:City>Westford</app:City>
+			<app:State>MA</app:State>
+			<app:Postal_Code>01886</app:Postal_Code>
+			<app:County>Middlesex</app:County>
+			<app:Number_Of_Units>1</app:Number_Of_Units>
+			<app:Year_Built>2000</app:Year_Built>
+		</app:Property>
+		<app:Purpose>
+			<app:Type>Purchase</app:Type>
+			<app:Source_Of_Down_Payment>Savings</app:Source_Of_Down_Payment>
+		</app:Purpose>
+		<app:Borrowers>
+			<app:Borrower Borrower_Type="Borrower">
+				<app:Title>Mr.</app:Title>
+				<app:First_Name>Rocky</app:First_Name>
+				<app:Last_Name>Miner</app:Last_Name>
+				<app:SSN>012121234</app:SSN>
+				<app:Phone>9783921000</app:Phone>
+				<app:DOB>05/25/1965</app:DOB>
+				<app:Years_School>16</app:Years_School>
+				<app:Marital_Status>Married</app:Marital_Status>
+				<app:Dependents>1</app:Dependents>
+				<app:Dependents_Ages>12</app:Dependents_Ages>
+				<app:Addresses>
+					<app:Address Address_Sequence="1">
+						<app:Type>Own</app:Type>
+						<app:Address_1>1801 Varsity Drive</app:Address_1>
+						<app:City>Raleigh</app:City>
+						<app:State>NC</app:State>
+						<app:Postal_Code>27606</app:Postal_Code>
+						<app:Number_Years>8</app:Number_Years>
+					</app:Address>
+				</app:Addresses>
+				<app:Employment_Information>
+					<app:Years_In_Profession>15</app:Years_In_Profession>
+					<app:Employment Employment_Sequence="1">
+						<app:Is_Self_Employed>false</app:Is_Self_Employed>
+						<app:Employer>
+							<app:Name>Red Hat, Inc.</app:Name>
+							<app:Address_1>1801 Varsity Drive</app:Address_1>
+							<app:City>Raleigh</app:City>
+							<app:State>NC</app:State>
+							<app:Postal_Code>27606</app:Postal_Code>
+						</app:Employer>
+						<app:Position>Software Engineer</app:Position>
+						<app:Title>Principle Engineer</app:Title>
+						<app:Type_Of_Business>Technology</app:Type_Of_Business>
+						<app:Business_Phone>19197543700</app:Business_Phone>
+						<app:Date_From>01/01/2000</app:Date_From>
+						<app:Date_To>09/01/2013</app:Date_To>
+						<app:Monthly_Income>6250</app:Monthly_Income>
+					</app:Employment>
+				</app:Employment_Information>
+				<app:Declarations>
+					<app:Any_Judgments>false</app:Any_Judgments>
+					<app:Declared_Bankrupt>false</app:Declared_Bankrupt>
+					<app:Property_Foreclosed>false</app:Property_Foreclosed>
+					<app:Lawsuit>false</app:Lawsuit>
+					<app:Obligated_On_Any_Loan>false</app:Obligated_On_Any_Loan>
+					<app:Delinquent>false</app:Delinquent>
+					<app:Obligated_To_Pay_Alimony>false</app:Obligated_To_Pay_Alimony>
+					<app:Borrowed_Down_Payment>false</app:Borrowed_Down_Payment>
+					<app:Co_Maker_Note>false</app:Co_Maker_Note>
+					<app:U_S_Citizen>true</app:U_S_Citizen>
+					<app:Permanent_Resident>false</app:Permanent_Resident>
+					<app:Primary_Residence>true</app:Primary_Residence>
+					<app:Ownership_Interest>true</app:Ownership_Interest>
+					<app:Property_Type>Principal_Residence</app:Property_Type>
+					<app:Title_Held>Solely_By_Yourself</app:Title_Held>
+				</app:Declarations>
+			</app:Borrower>
+			<app:Housing_Expense>
+				<app:Expense Expense_Type="Present">
+					<app:First_Mortgage>1500</app:First_Mortgage>
+					<app:Hazard_Insurance>50</app:Hazard_Insurance>
+					<app:Real_Estate_Taxes>120</app:Real_Estate_Taxes>
+				</app:Expense>
+			</app:Housing_Expense>
+			<app:Assets_Liabilities>
+				<app:Completed_Type>Not_Jointly</app:Completed_Type>
+				<app:Cash_Deposits>
+					<app:Cash_Deposit Cash_Deposit_Sequence="1">
+						<app:Description>My Real Estate Company</app:Description>
+						<app:Amount>20000</app:Amount>
+					</app:Cash_Deposit>
+				</app:Cash_Deposits>
+				<app:Checking_Savings>
+					<app:Account Account_Sequence="1">
+						<app:Account_Number>8948393029-01</app:Account_Number>
+						<app:Amount>5000</app:Amount>
+						<app:Name>First Federal Savings Bank</app:Name>
+						<app:Address_1>123 Main Street</app:Address_1>
+						<app:City>Westford</app:City>
+						<app:State>MA</app:State>
+						<app:Postal_Code>01886</app:Postal_Code>
+					</app:Account>
+				</app:Checking_Savings>
+				<app:Automobiles>
+					<app:Automobile Automobile_Sequence="1">
+						<app:Description>2006 Toyota Camry</app:Description>
+						<app:Amount>15000</app:Amount>
+					</app:Automobile>
+				</app:Automobiles>
+			</app:Assets_Liabilities>
+		</app:Borrowers>
+	</app:Application>
+         <preq:CreditScore>720</preq:CreditScore>
+      </preq:PreQualificationDecisionRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://soa.jboss.org/homeloan-origination-demo/PreQualDecisionServiceOp"/><con:wsrmConfig version="1.2"/></con:call><con:call name="Minimal Request"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/homeloan-origination-esb/ebws/homeloan-origination-demo/PreQualDecisionService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:preq="http://jboss.com/demo/products/soa-p/5.2/PreQualificationDecisionRequest.xsd" xmlns:app="http://jboss.com/demo/products/soa-p/5.2/Application.xsd">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <preq:PreQualificationDecisionRequest>
+         <app:Application Application_ID="1" Date_Created="2012-12-18T09:00:00">
+            <app:Amount>50000</app:Amount>
+            <app:Interest_Rate>5.30</app:Interest_Rate>
+            <app:Number_Of_Months>36</app:Number_Of_Months>
+            <app:Borrowers>
+               <app:Borrower Borrower_Type="Borrower">
+                  <app:First_Name>John</app:First_Name>
+                  <app:Last_Name>Doe</app:Last_Name>
+                  <app:SSN>789-12-3456</app:SSN>
+                  <app:DOB>01/01/1999</app:DOB>
+                  <app:Employment_Information>
+                     <app:Employment Employment_Sequence="1">
+                        <app:Is_Self_Employed>false</app:Is_Self_Employed>
+                        <app:Monthly_Income>75000</app:Monthly_Income>
+                     </app:Employment>
+                  </app:Employment_Information>
+               </app:Borrower>
+               <app:Assets_Liabilities>
+                  <app:Cash_Deposits>
+                     <app:Cash_Deposit Cash_Deposit_Sequence="1">
+                        <app:Amount>10000</app:Amount>
+                     </app:Cash_Deposit>
+                  </app:Cash_Deposits>
+               </app:Assets_Liabilities>
+            </app:Borrowers>
+         </app:Application>
+         <preq:CreditScore>700</preq:CreditScore>
+      </preq:PreQualificationDecisionRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://soa.jboss.org/homeloan-origination-demo/PreQualDecisionServiceOp"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/></con:soapui-project>

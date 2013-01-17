@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tns:Application Application_ID="" Date_Created="2001-12-31T12:00:00" xmlns:tns="http://jboss.com/demo/products/soa-p/5.2/Application.xsd"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jboss.com/demo/products/soa-p/5.2/Application.xsd Application.xsd ">
+    <tns:Type>Conventional</tns:Type>
+    <tns:Type_Description />
+    <tns:Amount>150000</tns:Amount>
+    <tns:Interest_Rate>3.75</tns:Interest_Rate>
+    <tns:Number_Of_Months>240</tns:Number_Of_Months>
+    <tns:Amortization_Type>Fixed_Rate</tns:Amortization_Type>
+    <tns:Property>
+        <tns:Type>Primary_Residence</tns:Type>
+        <tns:Address_1>314 Littleton Road</tns:Address_1>
+        <tns:City>Westford</tns:City>
+        <tns:State>MA</tns:State>
+        <tns:Postal_Code>01886</tns:Postal_Code>
+        <tns:County>Middlesex</tns:County>
+        <tns:Number_Of_Units>1</tns:Number_Of_Units>
+        <tns:Year_Built>2000</tns:Year_Built>
+    </tns:Property>
+    <tns:Purpose>
+        <tns:Type>Purchase</tns:Type>
+        <tns:Source_Of_Down_Payment>Savings</tns:Source_Of_Down_Payment>
+    </tns:Purpose>
+    <tns:Borrowers>
+        <tns:Borrower Borrower_Type="Borrower">
+            <tns:Title>Mr.</tns:Title>
+            <tns:First_Name>Rocky</tns:First_Name>
+            <tns:Last_Name>Miner</tns:Last_Name>
+            <tns:SSN>789-12-3456</tns:SSN>
+            <tns:Phone>9783921000</tns:Phone>
+            <tns:DOB>05/25/1965</tns:DOB>
+            <tns:Years_School>16</tns:Years_School>
+            <tns:Marital_Status>Married</tns:Marital_Status>
+            <tns:Dependents>1</tns:Dependents>
+            <tns:Dependents_Ages>12</tns:Dependents_Ages>
+            <tns:Addresses>
+                <tns:Address Address_Sequence="1">
+                    <tns:Type>Own</tns:Type>
+                    <tns:Address_1>1801 Varsity Drive</tns:Address_1>
+                    <tns:City>Raleigh</tns:City>
+                    <tns:State>NC</tns:State>
+                    <tns:Postal_Code>27606</tns:Postal_Code>
+                    <tns:Number_Years>8</tns:Number_Years>
+                </tns:Address>
+            </tns:Addresses>
+            <tns:Employment_Information>
+                <tns:Years_In_Profession>15</tns:Years_In_Profession>
+                <tns:Employment Employment_Sequence="1">
+                    <tns:Is_Self_Employed>false</tns:Is_Self_Employed>
+                    <tns:Employer>
+                        <tns:Name>Red Hat, Inc.</tns:Name>
+                        <tns:Address_1>1801 Varsity Drive</tns:Address_1>
+                        <tns:City>Raleigh</tns:City>
+                        <tns:State>NC</tns:State>
+                        <tns:Postal_Code>27606</tns:Postal_Code>
+                    </tns:Employer>
+                    <tns:Position>Software Engineer</tns:Position>
+                    <tns:Title>Principle Engineer</tns:Title>
+                    <tns:Type_Of_Business>Technology</tns:Type_Of_Business>
+                    <tns:Business_Phone>19197543700</tns:Business_Phone>
+                    <tns:Date_From>01/01/2000</tns:Date_From>
+                    <tns:Date_To>09/01/2011</tns:Date_To>
+                    <tns:Monthly_Income>6250</tns:Monthly_Income>
+                </tns:Employment>
+            </tns:Employment_Information>
+            <tns:Declarations>
+                <tns:Any_Judgments>false</tns:Any_Judgments>
+                <tns:Declared_Bankrupt>false</tns:Declared_Bankrupt>
+                <tns:Property_Foreclosed>false</tns:Property_Foreclosed>
+                <tns:Lawsuit>false</tns:Lawsuit>
+                <tns:Obligated_On_Any_Loan>false</tns:Obligated_On_Any_Loan>
+                <tns:Delinquent>false</tns:Delinquent>
+                <tns:Obligated_To_Pay_Alimony>false</tns:Obligated_To_Pay_Alimony>
+                <tns:Borrowed_Down_Payment>false</tns:Borrowed_Down_Payment>
+                <tns:Co_Maker_Note>false</tns:Co_Maker_Note>
+                <tns:U_S_Citizen>true</tns:U_S_Citizen>
+                <tns:Permanent_Resident>false</tns:Permanent_Resident>
+                <tns:Primary_Residence>true</tns:Primary_Residence>
+                <tns:Ownership_Interest>true</tns:Ownership_Interest>
+                <tns:Property_Type>Principal_Residence</tns:Property_Type>
+                <tns:Title_Held>Solely_By_Yourself</tns:Title_Held>
+            </tns:Declarations>
+        </tns:Borrower>
+        <tns:Housing_Expense>
+            <tns:Expense Expense_Type="Present">
+                <tns:First_Mortgage>1500</tns:First_Mortgage>
+                <tns:Hazard_Insurance>50</tns:Hazard_Insurance>
+                <tns:Real_Estate_Taxes>120</tns:Real_Estate_Taxes>
+            </tns:Expense>
+        </tns:Housing_Expense>
+        <tns:Assets_Liabilities>
+            <tns:Completed_Type>Not_Jointly</tns:Completed_Type>
+            <tns:Cash_Deposits>
+                <tns:Cash_Deposit Cash_Deposit_Sequence="1">
+                    <tns:Description>My Real Estate Company</tns:Description>
+                    <tns:Amount>1000</tns:Amount>
+                </tns:Cash_Deposit>
+            </tns:Cash_Deposits>
+            <tns:Checking_Savings>
+                <tns:Account Account_Sequence="1">
+                    <tns:Account_Number>8948393029-01</tns:Account_Number>
+                    <tns:Amount>5000</tns:Amount>
+                    <tns:Name>First Federal Savings Bank</tns:Name>
+                    <tns:Address_1>123 Main Street</tns:Address_1>
+                    <tns:City>Westford</tns:City>
+                    <tns:State>MA</tns:State>
+                    <tns:Postal_Code>01886</tns:Postal_Code>
+                </tns:Account>
+            </tns:Checking_Savings>
+            <tns:Automobiles>
+                <tns:Automobile Automobile_Sequence="1">
+                    <tns:Description>2006 Toyota Camry</tns:Description>
+                    <tns:Amount>15000</tns:Amount>
+                </tns:Automobile>
+            </tns:Automobiles>
+        </tns:Assets_Liabilities>
+    </tns:Borrowers>
+</tns:Application>

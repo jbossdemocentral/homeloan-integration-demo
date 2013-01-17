@@ -1,0 +1,60 @@
+<wsdl:definitions targetNamespace='http://soa.jboss.org/homeloan-origination-demo'
+	xmlns:esbns1='http://jboss.com/demo/products/soa-p/5.2/PreQualificationDecisionRequest.xsd'
+	xmlns:esbns2='http://jboss.com/demo/products/soa-p/5.2/PreQualificationDecisionResponse.xsd'
+	xmlns:soap='http://schemas.xmlsoap.org/wsdl/soap/' 
+	xmlns:tns='http://soa.jboss.org/homeloan-origination-demo'
+	xmlns:wsdl='http://schemas.xmlsoap.org/wsdl/'
+	xmlns:plnk='http://docs.oasis-open.org/wsbpel/2.0/plnktype'>
+    
+    <plnk:partnerLinkType name='PreQualificationDecisioning'>
+		<plnk:role name='DecisionService' portType='tns:PreQualDecisionServicePortType' />
+	</plnk:partnerLinkType>
+	
+	<wsdl:types>
+		<xs:schema
+			targetNamespace='http://jboss.com/demo/products/soa-p/5.2/PreQualificationDecisionRequest.xsd'
+			version='1.0' xmlns:xs='http://www.w3.org/2001/XMLSchema'>
+			<xs:include	schemaLocation='./PreQualificationDecisionRequest.xsd' />
+		</xs:schema>
+		<xs:schema
+			targetNamespace='http://jboss.com/demo/products/soa-p/5.2/PreQualificationDecisionResponse.xsd'
+			version='1.0' xmlns:xs='http://www.w3.org/2001/XMLSchema'>
+			<xs:include	schemaLocation='./PreQualificationDecisionResponse.xsd' />
+		</xs:schema>
+	</wsdl:types>
+	<wsdl:message name='PreQualDecisionServiceReq'>
+		<wsdl:part element='esbns1:PreQualificationDecisionRequest'
+			name='in'></wsdl:part>
+	</wsdl:message>
+	<wsdl:message name='PreQualDecisionServiceRes'>
+		<wsdl:part element='esbns2:PreQualificationDecisionResponse'
+			name='out'></wsdl:part>
+	</wsdl:message>
+	<wsdl:portType name='PreQualDecisionServicePortType'>
+		<wsdl:operation name='PreQualDecisionServiceOp'>
+			<wsdl:input message='tns:PreQualDecisionServiceReq' name='PreQualDecisionServiceReq'></wsdl:input>
+			<wsdl:output message='tns:PreQualDecisionServiceRes'
+				name='PreQualDecisionServiceRes'></wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name='PreQualDecisionServiceBinding' type='tns:PreQualDecisionServicePortType'>
+		<soap:binding style='document'
+			transport='http://schemas.xmlsoap.org/soap/http' />
+		<wsdl:operation name='PreQualDecisionServiceOp'>
+			<soap:operation
+				soapAction='http://soa.jboss.org/homeloan-origination-demo/PreQualDecisionServiceOpResp' />
+			<wsdl:input name='PreQualDecisionServiceReq'>
+				<soap:body use='literal' />
+			</wsdl:input>
+			<wsdl:output name='PreQualDecisionServiceRes'>
+				<soap:body use='literal' />
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name='PreQualDecisionServiceService'>
+		<wsdl:port binding='tns:PreQualDecisionServiceBinding' name='PreQualDecisionServicePortType'>
+			<soap:address
+				location='http://localhost:8080/homeloan-origination-esb/ebws/homeloan-origination-demo/PreQualDecisionService' />
+		</wsdl:port>
+	</wsdl:service>
+</wsdl:definitions>

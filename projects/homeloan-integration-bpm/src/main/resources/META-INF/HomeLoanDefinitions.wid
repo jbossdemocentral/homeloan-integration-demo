@@ -1,0 +1,30 @@
+import org.drools.process.core.datatype.impl.type.ObjectDataType;
+import org.drools.process.core.datatype.impl.type.StringDataType;
+
+[
+
+  [
+    "name" : "CreditReportNode",
+    "parameters" : [
+        "creditQuery" : new ObjectDataType()
+    ],
+    "results" : [
+        "creditScore" : new StringDataType()
+    ],
+    "displayName" : "Credit Report Node",
+    "icon" : "http://localhost:8080/jboss-brms/rest/packages/mortgages/assets/java-icon/binary"
+  ],
+
+  [
+    "name" : "PrequalificationNode",
+    "parameters" : [
+        "creditScore" : new StringDataType()
+    ],
+    "results" : [
+        "prequalResponse" : new ObjectDataType()
+    ],
+    "displayName" : "Prequalification Node",
+    "icon" : "http://localhost:8080/jboss-brms/rest/packages/mortgages/assets/java-icon/binary"
+  ]
+
+]

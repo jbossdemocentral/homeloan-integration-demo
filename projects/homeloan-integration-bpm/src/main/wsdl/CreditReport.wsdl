@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="CreditReport" 
+	targetNamespace="http://jboss.com/demo/products/soa-p/5.2/CreditReport.wsdl"
+    xmlns:tns="http://jboss.com/demo/products/soa-p/5.2/CreditReport.wsdl"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
+    
+    <plnk:partnerLinkType name="CreditRatingPLT">
+		<plnk:role name="ConsumerReportingAgency" portType="tns:CreditReportPortType" />
+	</plnk:partnerLinkType>
+	
+    <wsdl:types>
+        <xsd:schema elementFormDefault="qualified"
+        	targetNamespace="http://jboss.com/demo/products/soa-p/5.2/CreditReport.wsdl"
+        	xmlns:tns="http://jboss.com/demo/products/soa-p/5.2/CreditReport.wsdl"
+        	xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:element name="creditQuery">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="firstName" type="xsd:string"></xsd:element>
+                        <xsd:element name="lastName" type="xsd:string"></xsd:element>
+                         <xsd:element name="dob" type="xsd:string"></xsd:element>
+                        <xsd:element name="ssn" type="xsd:string"></xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="creditReport">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="firstName" type="xsd:string"></xsd:element>
+                        <xsd:element name="lastName" type="xsd:string"></xsd:element>
+                        <xsd:element name="dob" type="xsd:string"></xsd:element>
+                        <xsd:element name="ssn" type="xsd:string"></xsd:element>
+                        <xsd:element name="score" type="xsd:string"></xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </wsdl:types>
+    
+    <wsdl:message name="CreditReportRequest">
+        <wsdl:part name="Document" element="tns:creditQuery"/>
+    </wsdl:message>
+    <wsdl:message name="CreditReportResponse">
+        <wsdl:part name="Document" element="tns:creditReport"/>
+    </wsdl:message>
+    
+    <wsdl:portType name="CreditReportPortType">
+        <wsdl:operation name="CreditReport">
+            <wsdl:input message="tns:CreditReportRequest"/>
+            <wsdl:output message="tns:CreditReportResponse"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    
+    <wsdl:binding name="CreditReportSoap" type="tns:CreditReportPortType">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="CreditReport">
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" />
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    
+    <wsdl:service name="CreditReportService">
+        <wsdl:port name="CreditReportSoap" binding="tns:CreditReportSoap">
+            <soap:address location="http://localhost:8080/JBHomeLoans/CreditReport"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

@@ -1,4 +1,4 @@
-#!/bin/sh 
+#!/bin/bash 
 JBOSS_HOME=./target/jboss-soa-p-5
 SERVER_DIR=$JBOSS_HOME/jboss-as/server/default
 INBOUND_DIR=/tmp/inboundLoanApplications
@@ -82,32 +82,62 @@ else
 	unzip -q -d target $SRC_DIR/$SOA_P
 fi
 
-# Unzip the jboss-brms-manager.zip from JBoss BRMS Deployable
+# Unzip the required files from JBoss BRMS Deployable
 echo Unpacking JBoss Enterprise BRMS $VERSION...
 echo
-unzip -q $SRC_DIR/$BRMS jboss-brms-manager.zip 
 
-echo Deploying JBoss Enterprise BRMS Manager WAR...
+unzip -q $SRC_DIR/$BRMS jboss-brms-manager.zip 
+echo "  - deploying JBoss Enterprise BRMS Manager WAR..."
 echo
 unzip -q -d $SERVER_DIR/deploy jboss-brms-manager.zip
 rm jboss-brms-manager.zip
+
+unzip -q $SRC_DIR/$BRMS jboss-jbpm-console.zip 
+echo "  - deploying jBPM Console WARs..."
+echo
+unzip -q -d $SERVER_DIR/deploy jboss-jbpm-console.zip
+rm jboss-jbpm-console.zip
+
+unzip -q $SRC_DIR/$BRMS jboss-jbpm-engine.zip 
+echo "  - copying jBPM client JARs..."
+echo
+unzip -q -d $JBOSS_HOME/jboss-as/common jboss-jbpm-engine.zip lib/netty.jar
+rm jboss-jbpm-engine.zip
+
+echo Rounding up, setting permissions and copying support files...
+echo
 
 # Add execute permissions to the run.sh script
 echo "  - making sure run.sh for server is executable..."
 echo
 chmod u+x $JBOSS_HOME/jboss-as/bin/run.sh
 
+echo "  - adding BRMS policy in login-config.xml file..."
+echo
+cp support/login-config.xml $SERVER_DIR/conf
+
+echo "  - limiting verbose JackRabbit logging in jboss-log4j.xml file..."
+echo
+cp support/jboss-log4j.xml $SERVER_DIR/conf
+
 echo "  - enabling admin account in soa-users.properties file..."
 echo
 cp support/soa-users.properties $SERVER_DIR/conf/props
 
-echo "  - registering an additional RiftSaw event listner in bpel.properties file..."
+echo "  - registering an additional RiftSaw event listener in bpel.properties file..."
 echo
 cp support/bpel.properties $SERVER_DIR/deploy/riftsaw.sar
 
-echo "  - copying custom RiftSaw event listner implementation jar to project..."
+echo "  - copying custom RiftSaw event listener implementation jar to project..."
 echo 
 cp support/droolsfusion-eventlistener.jar $SERVER_DIR/deploy/riftsaw.sar/lib
+
+echo "  - copying model jars and configuration to Business Central server..."
+echo 
+cp support/homeloan-integration-bpm-model.jar $SERVER_DIR/deploy/business-central-server.war/WEB-INF/lib
+cp support/mortgages-model.jar $SERVER_DIR/deploy/business-central-server.war/WEB-INF/lib
+cp support/drools.session.conf $SERVER_DIR/deploy/business-central-server.war/WEB-INF/classes/META-INF
+cp support/CustomWorkItemHandlers.conf $SERVER_DIR/deploy/business-central-server.war/WEB-INF/classes/META-INF
 
 echo Integration $VERSION Home Loan Demo Setup Complete.
 echo

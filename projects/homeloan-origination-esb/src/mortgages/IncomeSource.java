@@ -1,49 +1,51 @@
 package mortgages;
 
-public class IncomeSource {
+import java.io.Serializable;
 
-	private int monthlyAmount;
-	private boolean selfEmployed;
+public class IncomeSource implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * @return the monthlyAmount
-	 */
-	public int getMonthlyAmount() {
-		return monthlyAmount;
-	}
+    private int monthlyAmount;
+    private boolean selfEmployed;
 
-	/**
-	 * @param monthlyAmount
-	 *            the monthlyAmount to set
-	 */
-	public void setMonthlyAmount(int monthlyAmount) {
-		this.monthlyAmount = monthlyAmount;
-	}
+    /**
+     * @return the monthlyAmount
+     */
+    public int getMonthlyAmount() {
+        return monthlyAmount;
+    }
 
-	/**
-	 * @return the selfEmployed
-	 */
-	public boolean isSelfEmployed() {
-		return selfEmployed;
-	}
+    /**
+     * @param monthlyAmount
+     *            the monthlyAmount to set
+     */
+    public void setMonthlyAmount(final int monthlyAmount) {
+        this.monthlyAmount = monthlyAmount;
+    }
 
-	/**
-	 * @param selfEmployed
-	 *            the selfEmployed to set
-	 */
-	public void setSelfEmployed(boolean selfEmployed) {
-		this.selfEmployed = selfEmployed;
-	}
+    /**
+     * @return the selfEmployed
+     */
+    public boolean isSelfEmployed() {
+        return selfEmployed;
+    }
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.lang.Object#toString()
-	 */
-	@Override
-	public String toString() {
-		return this.getClass().getSimpleName() + ": monthlyAmount="
-				+ this.monthlyAmount + " selfEmployed=" + this.selfEmployed;
-	}
+    /**
+     * @param selfEmployed
+     *            the selfEmployed to set
+     */
+    public void setSelfEmployed(final boolean selfEmployed) {
+        this.selfEmployed = selfEmployed;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName() + ": monthlyAmount=" + monthlyAmount + " selfEmployed=" + selfEmployed;
+    }
 
 }

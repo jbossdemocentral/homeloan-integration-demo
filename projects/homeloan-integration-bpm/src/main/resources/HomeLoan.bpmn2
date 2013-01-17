@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.omg.org/bpmn20" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:drools="http://www.jboss.org/drools" id="_iT8n0GC5EeKMqJhc2-CR9A" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd" expressionLanguage="http://www.mvel.org/2.0" targetNamespace="http://www.omg.org/bpmn20" typeLanguage="http://www.java.com/javaTypes">
+  <bpmn2:itemDefinition id="_applicationItem" structureRef="org.jbpm.homeloan.prequalification.ApplicationType"/>
+  <bpmn2:itemDefinition id="_creditScoreItem" structureRef="String"/>
+  <bpmn2:itemDefinition id="_applicantItem" structureRef="mortgages.Applicant"/>
+  <bpmn2:itemDefinition id="_incomeSourceItem" structureRef="mortgages.IncomeSource"/>
+  <bpmn2:itemDefinition id="_loanApplicationItem" structureRef="mortgages.LoanApplication"/>
+  <bpmn2:itemDefinition id="_prequalResponseItem" structureRef="org.jbpm.homeloan.prequalification.PreQualificationDecisionResponseType"/>
+  <bpmn2:process id="mortgages.HomeLoan" drools:packageName="mortgages" drools:version="1" name="HomeLoan" isExecutable="true">
+    <bpmn2:property id="application" itemSubjectRef="_applicationItem"/>
+    <bpmn2:property id="creditScore" itemSubjectRef="_creditScoreItem"/>
+    <bpmn2:property id="applicant" itemSubjectRef="_applicantItem"/>
+    <bpmn2:property id="incomeSource" itemSubjectRef="_incomeSourceItem"/>
+    <bpmn2:property id="loanApplication" itemSubjectRef="_loanApplicationItem"/>
+    <bpmn2:property id="prequalResponse" itemSubjectRef="_prequalResponseItem"/>
+    <bpmn2:task id="_F9F435EB-D7FF-4B7D-A888-7C6AD0B78B37" drools:bgcolor="#00FFFF" drools:taskName="CreditReportNode" name="Credit Report Node (BPEL)">
+      <bpmn2:incoming>_A710C291-4763-4167-AC67-09775C42E9D1-_F9F435EB-D7FF-4B7D-A888-7C6AD0B78B37</bpmn2:incoming>
+      <bpmn2:outgoing>_F9F435EB-D7FF-4B7D-A888-7C6AD0B78B37-_11</bpmn2:outgoing>
+      <bpmn2:ioSpecification id="_iT8n0WC5EeKMqJhc2-CR9A">
+        <bpmn2:dataInput id="_F9F435EB-D7FF-4B7D-A888-7C6AD0B78B37_TaskNameInput" name="TaskName"/>
+        <bpmn2:dataInput id="_F9F435EB-D7FF-4B7D-A888-7C6AD0B78B37_applicationInput" name="application"/>
+        <bpmn2:dataOutput id="_F9F435EB-D7FF-4B7D-A888-7C6AD0B78B37_creditScoreOutput" name="creditScore"/>
+        <bpmn2:inputSet id="_iT8n0mC5EeKMqJhc2-CR9A">
+          <bpmn2:dataInputRefs>_F9F435EB-D7FF-4B7D-A888-7C6AD0B78B37_applicationInput</bpmn2:dataInputRefs>
+          <bpmn2:dataInputRefs>_F9F435EB-D7FF-4B7D-A888-7C6AD0B78B37_TaskNameInput</bpmn2:dataInputRefs>
+        </bpmn2:inputSet>
+        <bpmn2:outputSet id="_iT8n02C5EeKMqJhc2-CR9A">
+          <bpmn2:dataOutputRefs>_F9F435EB-D7FF-4B7D-A888-7C6AD0B78B37_creditScoreOutput</bpmn2:dataOutputRefs>
+        </bpmn2:outputSet>
+      </bpmn2:ioSpecification>
+      <bpmn2:dataInputAssociation id="_iT8n1GC5EeKMqJhc2-CR9A">
+        <bpmn2:targetRef>_F9F435EB-D7FF-4B7D-A888-7C6AD0B78B37_TaskNameInput</bpmn2:targetRef>
+        <bpmn2:assignment id="_iT8n1WC5EeKMqJhc2-CR9A">
+          <bpmn2:from xsi:type="bpmn2:tFormalExpression" id="_iT8n1mC5EeKMqJhc2-CR9A">CreditReportNode</bpmn2:from>
+          <bpmn2:to xsi:type="bpmn2:tFormalExpression" id="_iT8n12C5EeKMqJhc2-CR9A">_F9F435EB-D7FF-4B7D-A888-7C6AD0B78B37_TaskNameInput</bpmn2:to>
+        </bpmn2:assignment>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataInputAssociation id="_iT8n2GC5EeKMqJhc2-CR9A">
+        <bpmn2:sourceRef>application</bpmn2:sourceRef>
+        <bpmn2:targetRef>_F9F435EB-D7FF-4B7D-A888-7C6AD0B78B37_applicationInput</bpmn2:targetRef>
+      </bpmn2:dataInputAssociation>
+      <bpmn2:dataOutputAssociation id="_iT8n2WC5EeKMqJhc2-CR9A">
+        <bpmn2:sourceRef>_F9F435EB-D7FF-4B7D-A888-7C6AD0B78B37_creditScoreOutput</bpmn2:sourceRef>
+        <bpmn2:targetRef>creditScore</bpmn2:targetRef>
+      </bpmn2:dataOutputAssociation>
+    </bpmn2:task>
+    <bpmn2:startEvent id="_243AE622-3FCA-4A77-BA5D-05DF7CF309A6" drools:bgcolor="#339966" name="">
+      <bpmn2:outgoing>_243AE622-3FCA-4A77-BA5D-05DF7CF309A6-_A710C291-4763-4167-AC67-09775C42E9D1</bpmn2:outgoing>
+    </bpmn2:startEvent>
+    <bpmn2:exclusiveGateway id="_8BBF70A7-DBB5-4657-A1B1-9A9C77582B3C" drools:bgcolor="#CC99FF" drools:dg="" name="Approved?" gatewayDirection="Diverging">
+      <bpmn2:incoming>_12-_8BBF70A7-DBB5-4657-A1B1-9A9C77582B3C</bpmn2:incoming>
+      <bpmn2:outgoing>_8BBF70A7-DBB5-4657-A1B1-9A9C77582B3C-_4FD76C22-B883-46F7-9733-A0C624A5EEF9</bpmn2:outgoing>
+      <bpmn2:outgoing>_8BBF70A7-DBB5-4657-A1B1-9A9C77582B3C-_B3ABF310-3DA9-4132-B88C-B9EF80DC46D8</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+    <bpmn2:scriptTask id="_4FD76C22-B883-46F7-9733-A0C624A5EEF9" drools:bgcolor="#00FF00" name="Communicate acceptance" scriptFormat="http://www.java.com/java">
+      <bpmn2:incoming>_8BBF70A7-DBB5-4657-A1B1-9A9C77582B3C-_4FD76C22-B883-46F7-9733-A0C624A5EEF9</bpmn2:incoming>
+      <bpmn2:outgoing>_4FD76C22-B883-46F7-9733-A0C624A5EEF9-_AB8CF4CC-9888-4687-AD16-E4766A329CCA</bpmn2:outgoing>
+      <bpmn2:script><![CDATA[System.out.println("Entering " + kcontext.getNodeInstance().getNodeName() +" Node");
+
+System.out.println("Application was approved with rate " + prequalResponse.getApprovedRate() + " and insurance cost " + prequalResponse.getInsuranceCost());
+
+System.out.println("Leaving " + kcontext.getNodeInstance().getNodeName() +" Node");
+]]></bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:scriptTask id="_B3ABF310-3DA9-4132-B88C-B9EF80DC46D8" drools:bgcolor="#FF0000" name="Communicate rejection" scriptFormat="http://www.java.com/java">
+      <bpmn2:incoming>_8BBF70A7-DBB5-4657-A1B1-9A9C77582B3C-_B3ABF310-3DA9-4132-B88C-B9EF80DC46D8</bpmn2:incoming>
+      <bpmn2:outgoing>_B3ABF310-3DA9-4132-B88C-B9EF80DC46D8-_AB8CF4CC-9888-4687-AD16-E4766A329CCA</bpmn2:outgoing>
+      <bpmn2:script><![CDATA[System.out.println("Entering " + kcontext.getNodeInstance().getNodeName() +" Node");
+
+System.out.println("Application was not approved, for reason: " + prequalResponse.getExplanation());
+
+System.out.println("Leaving " + kcontext.getNodeInstance().getNodeName() +" Node");
+]]></bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:exclusiveGateway id="_AB8CF4CC-9888-4687-AD16-E4766A329CCA" drools:bgcolor="#CC99FF" drools:dg="" name="" gatewayDirection="Converging">
+      <bpmn2:incoming>_B3ABF310-3DA9-4132-B88C-B9EF80DC46D8-_AB8CF4CC-9888-4687-AD16-E4766A329CCA</bpmn2:incoming>
+      <bpmn2:incoming>_4FD76C22-B883-46F7-9733-A0C624A5EEF9-_AB8CF4CC-9888-4687-AD16-E4766A329CCA</bpmn2:incoming>
+      <bpmn2:outgoing>_AB8CF4CC-9888-4687-AD16-E4766A329CCA-_A4F6DAFE-EC3D-4ECA-BD14-210880458167</bpmn2:outgoing>
+    </bpmn2:exclusiveGateway>
+    <bpmn2:endEvent id="_A4F6DAFE-EC3D-4ECA-BD14-210880458167" drools:bgcolor="#FF0000" name="">
+      <bpmn2:incoming>_AB8CF4CC-9888-4687-AD16-E4766A329CCA-_A4F6DAFE-EC3D-4ECA-BD14-210880458167</bpmn2:incoming>
+    </bpmn2:endEvent>
+    <bpmn2:scriptTask id="_A710C291-4763-4167-AC67-09775C42E9D1" drools:bgcolor="#FFFF99" name="Read application" scriptFormat="http://www.java.com/java">
+      <bpmn2:incoming>_243AE622-3FCA-4A77-BA5D-05DF7CF309A6-_A710C291-4763-4167-AC67-09775C42E9D1</bpmn2:incoming>
+      <bpmn2:outgoing>_A710C291-4763-4167-AC67-09775C42E9D1-_F9F435EB-D7FF-4B7D-A888-7C6AD0B78B37</bpmn2:outgoing>
+      <bpmn2:script><![CDATA[System.out.println("Entering " + kcontext.getNodeInstance().getNodeName() +" Node");if (application == null) {  System.out.println("There is no application object defined, adding default for demo purposes.");  /* Define query object. */  org.jbpm.homeloan.prequalification.ObjectFactory fact = new org.jbpm.homeloan.prequalification.ObjectFactory();  application = fact.createApplicationType();  final org.jbpm.homeloan.prequalification.ApplicationType.Borrowers borrowers = fact.createApplicationTypeBorrowers();  application.setBorrowers(borrowers);  final org.jbpm.homeloan.prequalification.BorrowerType borrower = fact.createBorrowerType();  borrowers.getBorrower().add(borrower);  borrower.setFirstName("John");  borrower.setLastName("Doe");  borrower.setDOB("01/01/1970");  borrower.setSSN("789-12-3456");  application.setAmount(java.math.BigDecimal.valueOf(150000));  application.setInterestRate(java.math.BigDecimal.valueOf(5.3));  application.setNumberOfMonths(java.math.BigInteger.valueOf(20 * 12));  final org.jbpm.homeloan.prequalification.AssetsLiabilitiesType assetsLiabilities = fact.createAssetsLiabilitiesType();  borrowers.setAssetsLiabilities(assetsLiabilities);  final org.jbpm.homeloan.prequalification.AssetsLiabilitiesType.CashDeposits cashDeposits = fact.createAssetsLiabilitiesTypeCashDeposits();  assetsLiabilities.setCashDeposits(cashDeposits);  final org.jbpm.homeloan.prequalification.CashDepositType cashDeposit = fact.createCashDepositType();  cashDeposits.getCashDeposit().add(cashDeposit);  cashDeposit.setAmount(java.math.BigDecimal.valueOf(1000));  final org.jbpm.homeloan.prequalification.BorrowerType.EmploymentInformation employmentInformation = fact.createBorrowerTypeEmploymentInformation();  borrower.setEmploymentInformation(employmentInformation);  final org.jbpm.homeloan.prequalification.EmploymentType employment = fact.createEmploymentType();  employmentInformation.getEmployment().add(employment);  employment.setMonthlyIncome(java.math.BigDecimal.valueOf(5000));  employment.setIsSelfEmployed(Boolean.FALSE);  kcontext.setVariable("application", application);	}System.out.println("Leaving " + kcontext.getNodeInstance().getNodeName() +" Node");]]></bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:businessRuleTask id="_10" drools:bgcolor="#FFCC99" drools:ruleFlowGroup="Prequalification" name="Prequalification Rules">
+      <bpmn2:incoming>_11-_10</bpmn2:incoming>
+      <bpmn2:outgoing>_10-_12</bpmn2:outgoing>
+    </bpmn2:businessRuleTask>
+    <bpmn2:scriptTask id="_11" drools:bgcolor="#FFCC99" name="Initialise rules input" scriptFormat="http://www.java.com/java">
+      <bpmn2:incoming>_F9F435EB-D7FF-4B7D-A888-7C6AD0B78B37-_11</bpmn2:incoming>
+      <bpmn2:outgoing>_11-_10</bpmn2:outgoing>
+      <bpmn2:script><![CDATA[System.out.println("Entering " + kcontext.getNodeInstance().getNodeName() +" Node.");// Create and fill the objects for the rules model.System.out.println("Converting variables for calling rules.");applicant = org.jbpm.homeloan.ModelConverter.getApplicant(application, creditScore);kcontext.setVariable("applicant", applicant);incomeSource = org.jbpm.homeloan.ModelConverter.getIncomeSource(application);kcontext.setVariable("incomeSource", incomeSource);loanApplication = org.jbpm.homeloan.ModelConverter.getLoanApplication(application);kcontext.setVariable("loanApplication", loanApplication);// Insert rules model objects into our session for the rules to use.insert(applicant);insert(incomeSource);insert(loanApplication);System.out.println("Leaving " + kcontext.getNodeInstance().getNodeName() +" Node.");System.out.println("Entering Prequalification Rules Node.");]]></bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:scriptTask id="_12" drools:bgcolor="#FFCC99" name="Process rules output" scriptFormat="http://www.java.com/java">
+      <bpmn2:incoming>_10-_12</bpmn2:incoming>
+      <bpmn2:outgoing>_12-_8BBF70A7-DBB5-4657-A1B1-9A9C77582B3C</bpmn2:outgoing>
+      <bpmn2:script><![CDATA[System.out.println("Leaving Prequalification Rules Node.");System.out.println("Entering " + kcontext.getNodeInstance().getNodeName() +" Node.");// Create and fill the objects back to the process model.System.out.println("Converting variables after calling rules.");prequalResponse = org.jbpm.homeloan.ModelConverter.getPreQualificationDecisionResponse(loanApplication);kcontext.setVariable("prequalResponse", prequalResponse);System.out.println("Leaving " + kcontext.getNodeInstance().getNodeName() +" Node.");]]></bpmn2:script>
+    </bpmn2:scriptTask>
+    <bpmn2:sequenceFlow id="_A710C291-4763-4167-AC67-09775C42E9D1-_F9F435EB-D7FF-4B7D-A888-7C6AD0B78B37" sourceRef="_A710C291-4763-4167-AC67-09775C42E9D1" targetRef="_F9F435EB-D7FF-4B7D-A888-7C6AD0B78B37"/>
+    <bpmn2:sequenceFlow id="_12-_8BBF70A7-DBB5-4657-A1B1-9A9C77582B3C" sourceRef="_12" targetRef="_8BBF70A7-DBB5-4657-A1B1-9A9C77582B3C"/>
+    <bpmn2:sequenceFlow id="_8BBF70A7-DBB5-4657-A1B1-9A9C77582B3C-_4FD76C22-B883-46F7-9733-A0C624A5EEF9" drools:priority="1" name="yes" sourceRef="_8BBF70A7-DBB5-4657-A1B1-9A9C77582B3C" targetRef="_4FD76C22-B883-46F7-9733-A0C624A5EEF9">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression" id="_iT9O4GC5EeKMqJhc2-CR9A" language="http://www.java.com/java"><![CDATA[System.out.println("Gateway: " + kcontext.getNodeInstance().getNodeName());return prequalResponse.isApproved();]]></bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:sequenceFlow id="_8BBF70A7-DBB5-4657-A1B1-9A9C77582B3C-_B3ABF310-3DA9-4132-B88C-B9EF80DC46D8" drools:priority="2" name="no" sourceRef="_8BBF70A7-DBB5-4657-A1B1-9A9C77582B3C" targetRef="_B3ABF310-3DA9-4132-B88C-B9EF80DC46D8">
+      <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression" id="_iT9O4WC5EeKMqJhc2-CR9A" language="http://www.java.com/java"><![CDATA[System.out.println("Gateway: " + kcontext.getNodeInstance().getNodeName());return !prequalResponse.isApproved();]]></bpmn2:conditionExpression>
+    </bpmn2:sequenceFlow>
+    <bpmn2:sequenceFlow id="_4FD76C22-B883-46F7-9733-A0C624A5EEF9-_AB8CF4CC-9888-4687-AD16-E4766A329CCA" sourceRef="_4FD76C22-B883-46F7-9733-A0C624A5EEF9" targetRef="_AB8CF4CC-9888-4687-AD16-E4766A329CCA"/>
+    <bpmn2:sequenceFlow id="_B3ABF310-3DA9-4132-B88C-B9EF80DC46D8-_AB8CF4CC-9888-4687-AD16-E4766A329CCA" sourceRef="_B3ABF310-3DA9-4132-B88C-B9EF80DC46D8" targetRef="_AB8CF4CC-9888-4687-AD16-E4766A329CCA"/>
+    <bpmn2:sequenceFlow id="_AB8CF4CC-9888-4687-AD16-E4766A329CCA-_A4F6DAFE-EC3D-4ECA-BD14-210880458167" sourceRef="_AB8CF4CC-9888-4687-AD16-E4766A329CCA" targetRef="_A4F6DAFE-EC3D-4ECA-BD14-210880458167"/>
+    <bpmn2:sequenceFlow id="_243AE622-3FCA-4A77-BA5D-05DF7CF309A6-_A710C291-4763-4167-AC67-09775C42E9D1" sourceRef="_243AE622-3FCA-4A77-BA5D-05DF7CF309A6" targetRef="_A710C291-4763-4167-AC67-09775C42E9D1"/>
+    <bpmn2:sequenceFlow id="_11-_10" sourceRef="_11" targetRef="_10"/>
+    <bpmn2:sequenceFlow id="_F9F435EB-D7FF-4B7D-A888-7C6AD0B78B37-_11" sourceRef="_F9F435EB-D7FF-4B7D-A888-7C6AD0B78B37" targetRef="_11"/>
+    <bpmn2:sequenceFlow id="_10-_12" sourceRef="_10" targetRef="_12"/>
+  </bpmn2:process>
+  <bpmndi:BPMNDiagram id="_iT9O4mC5EeKMqJhc2-CR9A">
+    <bpmndi:BPMNPlane id="_iT9O42C5EeKMqJhc2-CR9A" bpmnElement="mortgages.HomeLoan">
+      <bpmndi:BPMNShape id="_iT9O5GC5EeKMqJhc2-CR9A" bpmnElement="_F9F435EB-D7FF-4B7D-A888-7C6AD0B78B37">
+        <dc:Bounds height="80.0" width="100.0" x="284.0" y="106.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_iT9O5WC5EeKMqJhc2-CR9A" bpmnElement="_243AE622-3FCA-4A77-BA5D-05DF7CF309A6">
+        <dc:Bounds height="30.0" width="30.0" x="60.0" y="131.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_iT9O5mC5EeKMqJhc2-CR9A" bpmnElement="_8BBF70A7-DBB5-4657-A1B1-9A9C77582B3C">
+        <dc:Bounds height="40.0" width="40.0" x="597.0" y="126.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_iT9O52C5EeKMqJhc2-CR9A" bpmnElement="_4FD76C22-B883-46F7-9733-A0C624A5EEF9">
+        <dc:Bounds height="80.0" width="100.0" x="671.0" y="33.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_iT9O6GC5EeKMqJhc2-CR9A" bpmnElement="_B3ABF310-3DA9-4132-B88C-B9EF80DC46D8">
+        <dc:Bounds height="80.0" width="100.0" x="694.0" y="171.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_iT9O6WC5EeKMqJhc2-CR9A" bpmnElement="_AB8CF4CC-9888-4687-AD16-E4766A329CCA">
+        <dc:Bounds height="40.0" width="40.0" x="841.0" y="126.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_iT9O6mC5EeKMqJhc2-CR9A" bpmnElement="_A4F6DAFE-EC3D-4ECA-BD14-210880458167">
+        <dc:Bounds height="28.0" width="28.0" x="942.0" y="130.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_iT9O62C5EeKMqJhc2-CR9A" bpmnElement="_A710C291-4763-4167-AC67-09775C42E9D1">
+        <dc:Bounds height="80.0" width="100.0" x="135.0" y="106.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_iT9O7GC5EeKMqJhc2-CR9A" bpmnElement="_10">
+        <dc:Bounds height="81.0" width="113.0" x="433.0" y="229.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_iT9O7WC5EeKMqJhc2-CR9A" bpmnElement="_11">
+        <dc:Bounds height="78.0" width="107.0" x="281.0" y="231.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_iT9O7mC5EeKMqJhc2-CR9A" bpmnElement="_12">
+        <dc:Bounds height="79.0" width="93.0" x="443.0" y="106.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="_iT9O72C5EeKMqJhc2-CR9A" bpmnElement="_A710C291-4763-4167-AC67-09775C42E9D1-_F9F435EB-D7FF-4B7D-A888-7C6AD0B78B37">
+        <di:waypoint xsi:type="dc:Point" x="185.0" y="146.0"/>
+        <di:waypoint xsi:type="dc:Point" x="334.0" y="146.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="_iT9O8GC5EeKMqJhc2-CR9A" bpmnElement="_12-_8BBF70A7-DBB5-4657-A1B1-9A9C77582B3C">
+        <di:waypoint xsi:type="dc:Point" x="489.5" y="145.5"/>
+        <di:waypoint xsi:type="dc:Point" x="617.0" y="146.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="_iT9O8WC5EeKMqJhc2-CR9A" bpmnElement="_8BBF70A7-DBB5-4657-A1B1-9A9C77582B3C-_4FD76C22-B883-46F7-9733-A0C624A5EEF9">
+        <di:waypoint xsi:type="dc:Point" x="617.0" y="146.0"/>
+        <di:waypoint xsi:type="dc:Point" x="617.0" y="73.0"/>
+        <di:waypoint xsi:type="dc:Point" x="721.0" y="73.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="_iT9O8mC5EeKMqJhc2-CR9A" bpmnElement="_8BBF70A7-DBB5-4657-A1B1-9A9C77582B3C-_B3ABF310-3DA9-4132-B88C-B9EF80DC46D8">
+        <di:waypoint xsi:type="dc:Point" x="617.0" y="146.0"/>
+        <di:waypoint xsi:type="dc:Point" x="616.0" y="211.0"/>
+        <di:waypoint xsi:type="dc:Point" x="744.0" y="211.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="_iT9O82C5EeKMqJhc2-CR9A" bpmnElement="_4FD76C22-B883-46F7-9733-A0C624A5EEF9-_AB8CF4CC-9888-4687-AD16-E4766A329CCA">
+        <di:waypoint xsi:type="dc:Point" x="721.0" y="73.0"/>
+        <di:waypoint xsi:type="dc:Point" x="861.0" y="73.0"/>
+        <di:waypoint xsi:type="dc:Point" x="861.0" y="146.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="_iT9O9GC5EeKMqJhc2-CR9A" bpmnElement="_B3ABF310-3DA9-4132-B88C-B9EF80DC46D8-_AB8CF4CC-9888-4687-AD16-E4766A329CCA">
+        <di:waypoint xsi:type="dc:Point" x="744.0" y="211.0"/>
+        <di:waypoint xsi:type="dc:Point" x="861.0" y="211.0"/>
+        <di:waypoint xsi:type="dc:Point" x="861.0" y="146.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="_iT9O9WC5EeKMqJhc2-CR9A" bpmnElement="_AB8CF4CC-9888-4687-AD16-E4766A329CCA-_A4F6DAFE-EC3D-4ECA-BD14-210880458167">
+        <di:waypoint xsi:type="dc:Point" x="861.0" y="146.0"/>
+        <di:waypoint xsi:type="dc:Point" x="956.0" y="144.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="_iT9O9mC5EeKMqJhc2-CR9A" bpmnElement="_243AE622-3FCA-4A77-BA5D-05DF7CF309A6-_A710C291-4763-4167-AC67-09775C42E9D1">
+        <di:waypoint xsi:type="dc:Point" x="75.0" y="146.0"/>
+        <di:waypoint xsi:type="dc:Point" x="185.0" y="146.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="_iT9O92C5EeKMqJhc2-CR9A" bpmnElement="_11-_10">
+        <di:waypoint xsi:type="dc:Point" x="334.5" y="270.0"/>
+        <di:waypoint xsi:type="dc:Point" x="489.5" y="269.5"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="_iT9O-GC5EeKMqJhc2-CR9A" bpmnElement="_F9F435EB-D7FF-4B7D-A888-7C6AD0B78B37-_11">
+        <di:waypoint xsi:type="dc:Point" x="334.0" y="146.0"/>
+        <di:waypoint xsi:type="dc:Point" x="334.5" y="270.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="_iT9O-WC5EeKMqJhc2-CR9A" bpmnElement="_10-_12">
+        <di:waypoint xsi:type="dc:Point" x="489.5" y="269.5"/>
+        <di:waypoint xsi:type="dc:Point" x="489.5" y="145.5"/>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn2:definitions>
