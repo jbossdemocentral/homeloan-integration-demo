@@ -5,7 +5,7 @@ INBOUND_DIR=/tmp/inboundLoanApplications
 SRC_DIR=./installs
 SOA_P=soa-p-5.3.0.GA.zip
 BRMS=brms-p-5.3.0.GA-deployable.zip
-VERSION=5.3.0.GA
+VERSION=5.3
 
 
 echo

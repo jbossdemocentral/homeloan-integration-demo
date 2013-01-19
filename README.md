@@ -6,11 +6,35 @@ Demo based on JBoss SOA-P and BRMS products.
 Setup and Configuration
 -----------------------
 
-See Quick Start Guide in project as ODT and PDF for details on installation.
+See Quick Start Guide in project as ODT and PDF for details on installation. For those that can't wait:
 
-For those that can't wait, see README in 'installs' directory, add products, 
-run 'init.sh', read output and then read Quick Start Guide that shows you 
-how to demo.
+- see README in 'installs' directory
+
+- add products 
+
+- run 'init.sh' & read output
+
+- run 'mavenize.sh' to install brms deps.
+
+- read Quick Start Guide
+
+- setup JBDS for project import, add soa-p server (adjust server VM args in launch config to '-Xms1303m -Xmx1303m')
+
+- import projects
+
+- deploy esb and bpel projects to soa-p server
+
+- start soa-p server
+
+- login to BRM (jboss-brms)
+
+- import repository-export from support dir
+
+- build and deploy project
+
+- login to Business Central (business-central)
+
+- start process, view soa-p logs for results
 
 
 Released versions
