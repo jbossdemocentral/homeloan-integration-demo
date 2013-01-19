@@ -117,7 +117,7 @@ public class ProcessTest extends JbpmJUnitTestCase {
 
         // Check whether the process instance has completed successfully.
         assertProcessInstanceCompleted(processInstance.getId(), ksession);
-        assertNodeTriggered(processInstance.getId(), "Read application", "Credit Report Node", "Initialise rules input", "Prequalification Rules",
+        assertNodeTriggered(processInstance.getId(), "Read application", "Credit Report Node (BPEL)", "Initialise rules input", "Prequalification Rules",
                 "Process rules output", "Communicate acceptance");
     }
 
@@ -136,7 +136,7 @@ public class ProcessTest extends JbpmJUnitTestCase {
 
         // Check whether the process instance has completed successfully.
         assertProcessInstanceCompleted(processInstance.getId(), ksession);
-        assertNodeTriggered(processInstance.getId(), "Read application", "Credit Report Node", "Initialise rules input", "Prequalification Rules",
+        assertNodeTriggered(processInstance.getId(), "Read application", "Credit Report Node (BPEL)", "Initialise rules input", "Prequalification Rules",
                 "Process rules output", "Communicate acceptance");
     }
 
@@ -155,7 +155,7 @@ public class ProcessTest extends JbpmJUnitTestCase {
 
         // Check whether the process instance has completed successfully.
         assertProcessInstanceCompleted(processInstance.getId(), ksession);
-        assertNodeTriggered(processInstance.getId(), "Read application", "Credit Report Node", "Initialise rules input", "Prequalification Rules",
+        assertNodeTriggered(processInstance.getId(), "Read application", "Credit Report Node (BPEL)", "Initialise rules input", "Prequalification Rules",
                 "Process rules output", "Communicate rejection");
     }
 
@@ -174,7 +174,7 @@ public class ProcessTest extends JbpmJUnitTestCase {
 
         // Check whether the process instance has completed successfully.
         assertProcessInstanceCompleted(processInstance.getId(), ksession);
-        assertNodeTriggered(processInstance.getId(), "Read application", "Credit Report Node", "Initialise rules input", "Prequalification Rules",
+        assertNodeTriggered(processInstance.getId(), "Read application", "Credit Report Node (BPEL)", "Initialise rules input", "Prequalification Rules",
                 "Process rules output", "Communicate rejection");
     }
 
@@ -193,7 +193,7 @@ public class ProcessTest extends JbpmJUnitTestCase {
 
         // Check whether the process instance has completed successfully.
         assertProcessInstanceCompleted(processInstance.getId(), ksession);
-        assertNodeTriggered(processInstance.getId(), "Read application", "Credit Report Node", "Initialise rules input", "Prequalification Rules",
+        assertNodeTriggered(processInstance.getId(), "Read application", "Credit Report Node (BPEL)", "Initialise rules input", "Prequalification Rules",
                 "Process rules output", "Communicate rejection");
     }
 
@@ -212,7 +212,7 @@ public class ProcessTest extends JbpmJUnitTestCase {
 
         // Check whether the process instance has completed successfully.
         assertProcessInstanceCompleted(processInstance.getId(), ksession);
-        assertNodeTriggered(processInstance.getId(), "Read application", "Credit Report Node", "Initialise rules input", "Prequalification Rules",
+        assertNodeTriggered(processInstance.getId(), "Read application", "Credit Report Node (BPEL)", "Initialise rules input", "Prequalification Rules",
                 "Process rules output", "Communicate rejection");
     }
 
@@ -231,7 +231,7 @@ public class ProcessTest extends JbpmJUnitTestCase {
 
         // Check whether the process instance has completed successfully.
         assertProcessInstanceCompleted(processInstance.getId(), ksession);
-        assertNodeTriggered(processInstance.getId(), "Read application", "Credit Report Node", "Initialise rules input", "Prequalification Rules",
+        assertNodeTriggered(processInstance.getId(), "Read application", "Credit Report Node (BPEL)", "Initialise rules input", "Prequalification Rules",
                 "Process rules output", "Communicate rejection");
     }
 
@@ -250,7 +250,7 @@ public class ProcessTest extends JbpmJUnitTestCase {
 
         // Check whether the process instance has completed successfully.
         assertProcessInstanceCompleted(processInstance.getId(), ksession);
-        assertNodeTriggered(processInstance.getId(), "Read application", "Credit Report Node", "Initialise rules input", "Prequalification Rules",
+        assertNodeTriggered(processInstance.getId(), "Read application", "Credit Report Node (BPEL)", "Initialise rules input", "Prequalification Rules",
                 "Process rules output", "Communicate rejection");
     }
 
@@ -266,7 +266,7 @@ public class ProcessTest extends JbpmJUnitTestCase {
 
         // Check whether the process instance has completed successfully.
         assertProcessInstanceCompleted(processInstance.getId(), ksession);
-        assertNodeTriggered(processInstance.getId(), "Read application", "Credit Report Node", "Initialise rules input", "Prequalification Rules",
+        assertNodeTriggered(processInstance.getId(), "Read application", "Credit Report Node (BPEL)", "Initialise rules input", "Prequalification Rules",
                 "Process rules output", "Communicate acceptance");
     }
 
