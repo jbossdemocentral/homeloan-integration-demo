@@ -13,7 +13,7 @@ echo Setting up the Home Loan SOA-P + BRMS demo environment...
 echo
 
 # make some checks first before proceeding.	
-if [[ -x $SRC_DIR/$SOA_P || -L $SRC_DIR/$SOA_P ]]; then
+if [[ -r $SRC_DIR/$SOA_P || -L $SRC_DIR/$SOA_P ]]; then
 	echo SOA-P sources are present...
 	echo
 else
