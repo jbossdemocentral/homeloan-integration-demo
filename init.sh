@@ -3,14 +3,18 @@ JBOSS_HOME=./target/jboss-soa-p-5
 SERVER_DIR=$JBOSS_HOME/jboss-as/server/default
 INBOUND_DIR=/tmp/inboundLoanApplications
 SRC_DIR=./installs
+PRJ_DIR=./projects/homeloan-integration-bpm
 SOA_P=soa-p-5.3.0.GA.zip
 BRMS=brms-p-5.3.0.GA-deployable.zip
+MAVENIZE_VERSION=5.3.0.BRMS
 VERSION=5.3
 
 
 echo
 echo Setting up the Home Loan SOA-P + BRMS demo environment...
 echo
+
+command -v mvn -q >/dev/null 2>&1 || { echo >&2 "Maven is required but not installed yet... aborting."; exit 1; }
 
 # make some checks first before proceeding.	
 if [[ -r $SRC_DIR/$SOA_P || -L $SRC_DIR/$SOA_P ]]; then
@@ -132,9 +136,57 @@ echo "  - copying custom RiftSaw event listener implementation jar to project...
 echo 
 cp support/droolsfusion-eventlistener.jar $SERVER_DIR/deploy/riftsaw.sar/lib
 
+echo "  - mavenizing your repo with BRMS components."
+echo
+echo
+echo Installing the BRMS binaries into the Maven repository...
+echo
+
+unzip -q $SRC_DIR/$BRMS jboss-brms-engine.zip
+unzip -q jboss-brms-engine.zip binaries/*
+cd binaries
+
+echo Installing Drools binaries...
+echo
+mvn -q install:install-file -Dfile=drools-ant-$MAVENIZE_VERSION.jar -DgroupId=org.drools -DartifactId=drools-ant -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
+mvn -q install:install-file -Dfile=drools-camel-$MAVENIZE_VERSION.jar -DgroupId=org.drools -DartifactId=drools-camel -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
+mvn -q install:install-file -Dfile=drools-compiler-$MAVENIZE_VERSION.jar -DgroupId=org.drools -DartifactId=drools-compiler -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
+mvn -q install:install-file -Dfile=drools-core-$MAVENIZE_VERSION.jar -DgroupId=org.drools -DartifactId=drools-core -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
+mvn -q install:install-file -Dfile=drools-decisiontables-$MAVENIZE_VERSION.jar -DgroupId=org.drools -DartifactId=drools-decisiontables -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
+mvn -q install:install-file -Dfile=droolsjbpm-ide-$MAVENIZE_VERSION.jar -DgroupId=org.drools -DartifactId=droolsjbpm-ide -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
+mvn -q install:install-file -Dfile=drools-jsr94-$MAVENIZE_VERSION.jar -DgroupId=org.drools -DartifactId=drools-jsr94 -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
+mvn -q install:install-file -Dfile=drools-persistence-jpa-$MAVENIZE_VERSION.jar -DgroupId=org.drools -DartifactId=drools-persistence-jpa -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
+mvn -q install:install-file -Dfile=drools-templates-$MAVENIZE_VERSION.jar -DgroupId=org.drools -DartifactId=drools-templates -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
+mvn -q install:install-file -Dfile=drools-verifier-$MAVENIZE_VERSION.jar -DgroupId=org.drools -DartifactId=drools-verifier -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
+mvn -q install:install-file -Dfile=knowledge-api-$MAVENIZE_VERSION.jar -DgroupId=org.drools -DartifactId=knowledge-api -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
+
+echo Installing jBPM binaries...
+echo
+mvn -q install:install-file -Dfile=jbpm-bam-$MAVENIZE_VERSION.jar -DgroupId=org.jbpm -DartifactId=jbpm-bam -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
+mvn -q install:install-file -Dfile=jbpm-bpmn2-$MAVENIZE_VERSION.jar -DgroupId=org.jbpm -DartifactId=jbpm-bpmn2 -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
+mvn -q install:install-file -Dfile=jbpm-flow-$MAVENIZE_VERSION.jar -DgroupId=org.jbpm -DartifactId=jbpm-flow -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
+mvn -q install:install-file -Dfile=jbpm-flow-builder-$MAVENIZE_VERSION.jar -DgroupId=org.jbpm -DartifactId=jbpm-flow-builder -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
+mvn -q install:install-file -Dfile=jbpm-human-task-$MAVENIZE_VERSION.jar -DgroupId=org.jbpm -DartifactId=jbpm-human-task -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
+mvn -q install:install-file -Dfile=jbpm-persistence-jpa-$MAVENIZE_VERSION.jar -DgroupId=org.jbpm -DartifactId=jbpm-persistence-jpa -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
+mvn -q install:install-file -Dfile=jbpm-test-$MAVENIZE_VERSION.jar -DgroupId=org.jbpm -DartifactId=jbpm-test -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
+mvn -q install:install-file -Dfile=jbpm-workitems-$MAVENIZE_VERSION.jar -DgroupId=org.jbpm -DartifactId=jbpm-workitems -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
+
+cd ..
+rm -rf binaries
+rm jboss-brms-engine.zip
+
+echo Installation of binaries "for" BRMS $MAVENIZE_VERSION complete.
+echo
+
+echo Now going to build the model jars by generating classes in your project.
+echo
+cd $PRJ_DIR
+mvn clean install -Dmaven.test.skip=true
+cd ../..
+
 echo "  - copying model jars and configuration to Business Central server..."
 echo 
-cp support/homeloan-integration-bpm-model.jar $SERVER_DIR/deploy/business-central-server.war/WEB-INF/lib
+cp $PRJ_DIR/target/homeloan-integration-bpm-model.jar $SERVER_DIR/deploy/business-central-server.war/WEB-INF/lib
 cp support/mortgages-model.jar $SERVER_DIR/deploy/business-central-server.war/WEB-INF/lib
 cp support/drools.session.conf $SERVER_DIR/deploy/business-central-server.war/WEB-INF/classes/META-INF
 cp support/CustomWorkItemHandlers.conf $SERVER_DIR/deploy/business-central-server.war/WEB-INF/classes/META-INF
