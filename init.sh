@@ -9,6 +9,18 @@ BRMS=brms-p-5.3.1.GA-deployable.zip
 MAVENIZE_VERSION=5.3.1.BRMS
 VERSION=5.3
 
+##
+# Installation mavanization functions.
+##
+installPom() {
+    mvn -q install:install-file -Dfile=../support/$2-$MAVENIZE_VERSION.pom.xml -DgroupId=$1 -DartifactId=$2 -Dversion=$MAVENIZE_VERSION -Dpackaging=pom;
+}
+
+installBinary() {
+    unzip -q $2-$MAVENIZE_VERSION.jar META-INF/maven/$1/$2/pom.xml;
+    mvn -q install:install-file -DpomFile=./META-INF/maven/$1/$2/pom.xml -Dfile=$2-$MAVENIZE_VERSION.jar -DgroupId=$1 -DartifactId=$2 -Dversion=$MAVENIZE_VERSION -Dpackaging=jar;
+}
+
 
 echo
 echo Setting up the Home Loan SOA-P + BRMS demo environment...
@@ -141,47 +153,63 @@ echo
 echo
 echo Installing the BRMS binaries into the Maven repository...
 echo
-
-unzip -q $SRC_DIR/$BRMS jboss-brms-engine.zip 
+unzip -q $SRC_DIR/$BRMS jboss-brms-engine.zip
 unzip -q jboss-brms-engine.zip binaries/*
+unzip -q $SRC_DIR/$BRMS jboss-jbpm-engine.zip
+unzip -q -o -d ./binaries jboss-jbpm-engine.zip
 cd binaries
+
+echo Installing parent POMs...
+echo
+installPom org.drools droolsjbpm-parent
+installPom org.drools droolsjbpm-knowledge
+installPom org.drools drools-multiproject
+installPom org.drools droolsjbpm-tools
+installPom org.drools droolsjbpm-integration
+installPom org.drools guvnor
+installPom org.jbpm jbpm
 
 echo Installing Rules dependencies into your Maven repository...
 echo
-mvn -q install:install-file -Dfile=drools-ant-$MAVENIZE_VERSION.jar -DgroupId=org.drools -DartifactId=drools-ant -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
-mvn -q install:install-file -Dfile=drools-camel-$MAVENIZE_VERSION.jar -DgroupId=org.drools -DartifactId=drools-camel -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
-mvn -q install:install-file -Dfile=drools-compiler-$MAVENIZE_VERSION.jar -DgroupId=org.drools -DartifactId=drools-compiler -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
-mvn -q install:install-file -Dfile=drools-core-$MAVENIZE_VERSION.jar -DgroupId=org.drools -DartifactId=drools-core -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
-mvn -q install:install-file -Dfile=drools-decisiontables-$MAVENIZE_VERSION.jar -DgroupId=org.drools -DartifactId=drools-decisiontables -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
-mvn -q install:install-file -Dfile=droolsjbpm-ide-$MAVENIZE_VERSION.jar -DgroupId=org.drools -DartifactId=droolsjbpm-ide -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
-mvn -q install:install-file -Dfile=drools-jsr94-$MAVENIZE_VERSION.jar -DgroupId=org.drools -DartifactId=drools-jsr94 -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
-mvn -q install:install-file -Dfile=drools-persistence-jpa-$MAVENIZE_VERSION.jar -DgroupId=org.drools -DartifactId=drools-persistence-jpa -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
-mvn -q install:install-file -Dfile=drools-templates-$MAVENIZE_VERSION.jar -DgroupId=org.drools -DartifactId=drools-templates -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
-mvn -q install:install-file -Dfile=drools-verifier-$MAVENIZE_VERSION.jar -DgroupId=org.drools -DartifactId=drools-verifier -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
-mvn -q install:install-file -Dfile=knowledge-api-$MAVENIZE_VERSION.jar -DgroupId=org.drools -DartifactId=knowledge-api -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
+#
+# droolsjbpm-knowledge
+installBinary org.drools knowledge-api
+
+#
+# drools-multiproject
+installBinary org.drools drools-core
+installBinary org.drools drools-compiler
+installBinary org.drools drools-jsr94
+installBinary org.drools drools-verifier
+installBinary org.drools drools-persistence-jpa
+installBinary org.drools drools-templates
+installBinary org.drools drools-decisiontables
+
+#
+# droolsjbpm-tools
+installBinary org.drools drools-ant
+
+#
+# droolsjbpm-integration
+installBinary org.drools drools-camel
+
+#
+# guvnor
+installBinary org.drools droolsjbpm-ide-common
 
 echo Installing BPM dependencies into your Maven repository...
 echo
-mvn -q install:install-file -Dfile=jbpm-flow-$MAVENIZE_VERSION.jar -DgroupId=org.jbpm -DartifactId=jbpm-flow -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
-mvn -q install:install-file -Dfile=jbpm-flow-builder-$MAVENIZE_VERSION.jar -DgroupId=org.jbpm -DartifactId=jbpm-flow-builder -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
-mvn -q install:install-file -Dfile=jbpm-persistence-jpa-$MAVENIZE_VERSION.jar -DgroupId=org.jbpm -DartifactId=jbpm-persistence-jpa -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
-mvn -q install:install-file -Dfile=jbpm-test-$MAVENIZE_VERSION.jar -DgroupId=org.jbpm -DartifactId=jbpm-test -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
+installBinary org.jbpm jbpm-flow
+installBinary org.jbpm jbpm-flow-builder
+installBinary org.jbpm jbpm-persistence-jpa
+installBinary org.jbpm jbpm-bam
+installBinary org.jbpm jbpm-bpmn2
+installBinary org.jbpm jbpm-workitems
+installBinary org.jbpm jbpm-human-task
+installBinary org.jbpm jbpm-test
 
 cd ..
-rm -rf binaries lib jboss-brms-engine.zip
-
-
-echo Installing BPM extra depencencies into your Maven repository...
-echo
-unzip -q $SRC_DIR/$BRMS jboss-jbpm-engine.zip
-unzip -q jboss-jbpm-engine.zip
-
-mvn -q install:install-file -Dfile=jbpm-bam-$MAVENIZE_VERSION.jar -DgroupId=org.jbpm -DartifactId=jbpm-bam -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
-mvn -q install:install-file -Dfile=jbpm-bpmn2-$MAVENIZE_VERSION.jar -DgroupId=org.jbpm -DartifactId=jbpm-bpmn2 -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
-mvn -q install:install-file -Dfile=jbpm-human-task-$MAVENIZE_VERSION.jar -DgroupId=org.jbpm -DartifactId=jbpm-human-task -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
-mvn -q install:install-file -Dfile=jbpm-workitems-$MAVENIZE_VERSION.jar -DgroupId=org.jbpm -DartifactId=jbpm-workitems -Dversion=$MAVENIZE_VERSION -Dpackaging=jar
-
-rm -rf lib jboss-jbpm-engine.zip *.jar
+rm -rf binaries jboss-jbpm-engine.zip jboss-brms-engine.zip 
 
 echo Installation of binaries for BRMS $MAVENIZE_VERSION complete.
 echo
@@ -201,3 +229,4 @@ cp support/CustomWorkItemHandlers.conf $SERVER_DIR/deploy/business-central-serve
 
 echo Integration $VERSION Home Loan Demo Setup Complete.
 echo
+
