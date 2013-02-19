@@ -120,9 +120,6 @@ echo
 unzip -q -d $JBOSS_HOME/jboss-as/common jboss-jbpm-engine.zip lib/netty.jar
 rm jboss-jbpm-engine.zip
 
-echo Rounding up, setting permissions and copying support files...
-echo
-
 # Add execute permissions to the run.sh script
 echo "  - making sure run.sh for server is executable..."
 echo
