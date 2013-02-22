@@ -47,3 +47,5 @@ See the tagged releases for the following versions of the product:
 - v1.2 merges mavanize.sh into main init script, init script builds project and deploys local model jars.
 
 - v1.3 is SOA-P 5.3.0, ESB, BPEL, Rules using BRMS 5.3.1. 
+
+- v1.4 adds SOA-P 5.3.1 updated platform product.
