@@ -17,6 +17,7 @@ See Quick Start Guide in project as ODT and PDF for details on installation. For
 - read Quick Start Guide
 
 - setup JBDS for project import, add soa-p server (adjust server VM args in launch config to '-Xms1303m -Xmx1303m')
+    (note: need to create server instance seperately due to https://issues.jboss.org/browse/JBDS-2481)
 
 - import projects
 
