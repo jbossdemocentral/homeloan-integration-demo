@@ -48,4 +48,4 @@ See the tagged releases for the following versions of the product:
 
 - v1.3 is SOA-P 5.3.0, ESB, BPEL, Rules using BRMS 5.3.1. 
 
-- v1.4 adds SOA-P 5.3.1 updated platform product.
+- v1.4 updated to add SOA-P 5.3.1 release.
