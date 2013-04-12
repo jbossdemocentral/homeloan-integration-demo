@@ -35,6 +35,7 @@ See Quick Start Guide in project as ODT and PDF for details on installation. For
 
 - start process, view soa-p logs for results
 
+Windows users see support/windows/README for installation.
 
 Released versions
 -----------------
@@ -50,3 +51,6 @@ See the tagged releases for the following versions of the product:
 - v1.3 is SOA-P 5.3.0, ESB, BPEL, Rules using BRMS 5.3.1. 
 
 - v1.4 updated to add SOA-P 5.3.1 release.
+
+- v1.5 has Windows installation scripts.
+
