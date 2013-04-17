@@ -123,12 +123,12 @@ rm jboss-jbpm-engine.zip
 
 echo Updating to the newest web designer...
 echo
-rm -rf $SERVER_DIR/designer.war/*
-unzip -q support/$DESIGNER -d $SERVER_DIR/designer.war
+rm -rf $SERVER_DIR/deploy/designer.war/*
+unzip -q support/$DESIGNER -d $SERVER_DIR/deploy/designer.war
 
 echo "  - set designer to jboss-brms in profile..."
 echo
-cp support/designer-jbpm.xml $SERVER_DIR/designer.war/profiles/jbpm.xml
+cp support/designer-jbpm.xml $SERVER_DIR/deploy/designer.war/profiles/jbpm.xml
 
 # Add execute permissions to the run.sh script
 echo "  - making sure run.sh for server is executable..."
