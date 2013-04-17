@@ -52,5 +52,7 @@ See the tagged releases for the following versions of the product:
 
 - v1.4 updated to add SOA-P 5.3.1 release.
 
-- v1.5 has Windows installation scripts.
+- v1.5 added Windows installation scripts.
+
+- v1.6 added patched web process designer, code editor no longer losing EOL's.
 
