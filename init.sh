@@ -6,6 +6,7 @@ SRC_DIR=./installs
 PRJ_DIR=./projects/homeloan-integration-bpm
 SOA_P=soa-p-5.3.1.GA.zip
 BRMS=brms-p-5.3.1.GA-deployable.zip
+DESIGNER=designer-patched.war
 MAVENIZE_VERSION=5.3.1.BRMS
 VERSION=5.3
 
@@ -122,6 +123,15 @@ echo "  - copying jBPM client JARs..."
 echo
 unzip -q -d $JBOSS_HOME/jboss-as/common jboss-jbpm-engine.zip lib/netty.jar
 rm jboss-jbpm-engine.zip
+
+echo Updating to the newest web designer...
+echo
+rm -rf $SERVER_DIR/deploy/designer.war/*
+unzip -q support/$DESIGNER -d $SERVER_DIR/deploy/designer.war
+
+echo "  - set designer to jboss-brms in profile..."
+echo
+cp support/designer-jbpm.xml $SERVER_DIR/deploy/designer.war/profiles/jbpm.xml
 
 # Add execute permissions to the run.sh script
 echo "  - making sure run.sh for server is executable..."
