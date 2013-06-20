@@ -4,22 +4,6 @@ Home Loan Integration Demo Quickstart Guide
 Demo based on JBoss SOA-P and BRMS products.
 
 
-Supporting Articles
--------------------
-
-[Ready to Rubmble with JBoss Integration with video] (http://www.schabell.org/2013/02/home-loan-demo-with-bpm-integration.html)
-
-[How to setup SOA Tools in BRMS Example for JBoss Dev Studio 7] (http://www.schabell.org/2013/04/jboss-developer-studio-7-how-to-setup.html)
-
-[How to setup SOA Tools in BRMS Example for JBoss Dev Studio 6] (http://www.schabell.org/2013/04/jboss-developer-studio-6-how-to-setup.html)
-
-[How to setup SOA Tools in BRMS Example for JBoss Dev Studio 5] (http://www.schabell.org/2012/05/jboss-developer-studio-5-how-to-setup.html)
-
-[How to add Eclipse BPMN2 Modeller project to JBoss Dev Studio 5] (http://www.schabell.org/2013/01/jbds-bpmn2-modeler-howto-install.html)
-
-[Demo now available with Windows installation scripts] (http://www.schabell.org/2013/04/jboss-brms-demos-available-windows.html)
-
-
 Setup and Configuration
 -----------------------
 
@@ -53,6 +37,22 @@ See Quick Start Guide in project as ODT and PDF for details on installation. For
 - start process, view soa-p logs for results
 
 Windows users see support/windows/README for installation.
+
+
+Supporting Articles
+-------------------
+
+[Ready to Rubmble with JBoss Integration with video] (http://www.schabell.org/2013/02/home-loan-demo-with-bpm-integration.html)
+
+[How to setup SOA Tools in BRMS Example for JBoss Dev Studio 7] (http://www.schabell.org/2013/04/jboss-developer-studio-7-how-to-setup.html)
+
+[How to setup SOA Tools in BRMS Example for JBoss Dev Studio 6] (http://www.schabell.org/2013/04/jboss-developer-studio-6-how-to-setup.html)
+
+[How to setup SOA Tools in BRMS Example for JBoss Dev Studio 5] (http://www.schabell.org/2012/05/jboss-developer-studio-5-how-to-setup.html)
+
+[How to add Eclipse BPMN2 Modeller project to JBoss Dev Studio 5] (http://www.schabell.org/2013/01/jbds-bpmn2-modeler-howto-install.html)
+
+[Demo now available with Windows installation scripts] (http://www.schabell.org/2013/04/jboss-brms-demos-available-windows.html)
 
 
 Released versions
