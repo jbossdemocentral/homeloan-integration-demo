@@ -1,4 +1,7 @@
 #!/bin/bash 
+DEMO="Home Loan Integration Demo"
+AUTHORS="Eric D. Schabell"
+PROJECT="git@github.com:eschabell/homeloan-integration-demo.git"
 JBOSS_HOME=./target/jboss-soa-p-5
 SERVER_DIR=$JBOSS_HOME/jboss-as/server/default
 INBOUND_DIR=/tmp/inboundLoanApplications
@@ -25,9 +28,25 @@ installBinary() {
     mvn -q install:install-file -DpomFile=./META-INF/maven/$1/$2/pom.xml -Dfile=$2-$MAVENIZE_VERSION.jar -DgroupId=$1 -DartifactId=$2 -Dversion=$MAVENIZE_VERSION -Dpackaging=jar;
 }
 
-
 echo
-echo Setting up the Home Loan SOA-P + BRMS demo environment...
+echo "########################################################################"
+echo "##                                                                    ##"   
+echo "##  Setting up the ${DEMO}                         ##"
+echo "##                                                                    ##"   
+echo "##                                                                    ##"   
+echo "##     ###  ####   ##      ####        ####   ####    #   #    ###    ##"
+echo "##    #     #  #  #  #     #   #   #   #   #  #   #  # # # #  #       ##"
+echo "##     ##   #  #  #### ##  ####   ###  ####   ####   #  #  #   ##     ##"
+echo "##       #  #  #  #  #     #       #   #   #  #  #   #     #     #    ##"
+echo "##    ###   ####  #  #     #           ####   #   #  #     #  ###     ##"
+echo "##                                                                    ##"   
+echo "##                                                                    ##"   
+echo "##  brought to you by,                                                ##"   
+echo "##             ${AUTHORS}                                       ##"
+echo "##                                                                    ##"   
+echo "##  ${PROJECT}            ##"
+echo "##                                                                    ##"   
+echo "########################################################################"
 echo
 
 command -v mvn -q >/dev/null 2>&1 || { echo >&2 "Maven is required but not installed yet... aborting."; exit 1; }
