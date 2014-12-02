@@ -1,7 +1,7 @@
 #!/bin/bash 
 DEMO="Home Loan Integration Demo"
 AUTHORS="Eric D. Schabell"
-PROJECT="git@github.com:eschabell/homeloan-integration-demo.git"
+PROJECT="git@github.com:jbossdemocentral/homeloan-integration-demo.git"
 JBOSS_HOME=./target/jboss-soa-p-5
 SERVER_DIR=$JBOSS_HOME/jboss-as/server/default
 INBOUND_DIR=/tmp/inboundLoanApplications
